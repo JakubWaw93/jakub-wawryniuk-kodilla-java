@@ -3,7 +3,6 @@ package com.kodilla.testing.shape;
 import org.junit.jupiter.api.*;
 
 import java.util.ArrayList;
-import java.util.List;
 
 @DisplayName("TDD: ShapeCollector Test Suit ")
 public class ShapeCollectorTestSuit{
@@ -96,11 +95,7 @@ public class ShapeCollectorTestSuit{
             expectedResult.add(circle);
             //expectedResult.add(circle2);
             //Then
-            Assertions.assertEquals(expectedResult.size(), result.size());
-            for (int i = 0; i < expectedResult.size(); i++) {
-                 Assertions.assertEquals(expectedResult.get(i), result.get(i));
-            }
-
+            Assertions.assertIterableEquals(result, expectedResult);
 
         }
     }
