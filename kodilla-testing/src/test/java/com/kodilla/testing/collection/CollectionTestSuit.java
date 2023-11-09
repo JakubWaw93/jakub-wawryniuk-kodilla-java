@@ -75,7 +75,8 @@ public class CollectionTestSuit {
         List<Integer> expectedResult = emptyList;
         System.out.println("Testing empty List");
         //Then
-        Assertions.assertEquals(result, expectedResult);
+        Assertions.assertEquals(result.size(), expectedResult.size());
+
     }
 
 

@@ -10,6 +10,14 @@ public class Triangle implements Shape {
         return "Triangle";
     }
 
+    public double getSide() {
+        return side;
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
     @Override
     public double getField() {
         return 0.5 * side * height;

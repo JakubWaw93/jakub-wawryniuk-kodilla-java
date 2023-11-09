@@ -14,6 +14,10 @@ public class Circle implements Shape {
         return "Circle";
     }
 
+    public double getRadius() {
+        return radius;
+    }
+
     @Override
     public double getField() {
         return Math.PI * radius * radius;
