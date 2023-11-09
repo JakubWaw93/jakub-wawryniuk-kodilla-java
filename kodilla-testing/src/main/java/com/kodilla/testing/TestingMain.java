@@ -13,15 +13,15 @@ public class TestingMain {
         int a=12;
         int b=3;
 
-        int addResult = 15;
-        if(addResult == calc.add(a, b)) {
+        int addExpectedResult = 15;
+        if(addExpectedResult == calc.add(a, b)) {
             System.out.println("Test OK");
         }else{
             System.out.println("Error!");
         }
 
-        int subtractResult = 9;
-        if(subtractResult == calc.subtract(a, b)) {
+        int subtractExpectedResult = 9;
+        if(subtractExpectedResult == calc.subtract(a, b)) {
             System.out.println("Test OK");
         }else{
             System.out.println("Error!");
