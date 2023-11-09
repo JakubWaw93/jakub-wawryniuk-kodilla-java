@@ -22,16 +22,31 @@ public class ShapeCollector {
     }
 
     public void removeFigure(Shape shape){
-
+        listOfFigures.remove(shape);
     }
 
     public Shape getFigure(int n){
-
-        return null;
+        Shape tempShape = listOfFigures.get(n);
+        return tempShape;
     }
 
     public ArrayList<Shape> showFigures(){
-        return null;
+        return listOfFigures;
 
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        ShapeCollector collector = (ShapeCollector) o;
+
+        return listOfFigures.equals(collector.listOfFigures);
+    }
+
+    @Override
+    public int hashCode() {
+        return listOfFigures.hashCode();
     }
 }

@@ -66,10 +66,9 @@ public class ShapeCollectorTestSuit{
                 Square square = new Square(8);
                 ShapeCollector collector = new ShapeCollector();
                 collector.addFigure(square);
-                collector.getFigure(0);
                 //When
                 Shape result = collector.getFigure(0);
-                Shape expectedResult = new Square(8);
+                Shape expectedResult = square;
                 //Then
                 Assertions.assertEquals(expectedResult, result);
             }
@@ -85,15 +84,23 @@ public class ShapeCollectorTestSuit{
             ShapeCollector collector = new ShapeCollector();
             Square square = new Square(8);
             Circle circle = new Circle(15);
+            Circle circle1 = new Circle(125);
+            Circle circle2 = new Circle(12);
             collector.addFigure(square);
             collector.addFigure(circle);
+            //collector.addFigure(circle1);
             //When
             ArrayList<Shape> result = collector.showFigures();
             ArrayList<Shape> expectedResult = new ArrayList<>();
             expectedResult.add(square);
             expectedResult.add(circle);
+            //expectedResult.add(circle2);
             //Then
-            Assertions.assertArrayEquals(expectedResult, result);
+            Assertions.assertEquals(expectedResult.size(), result.size());
+            for (int i = 0; i < expectedResult.size(); i++) {
+                 Assertions.assertEquals(expectedResult.get(i), result.get(i));
+            }
+
 
         }
     }
