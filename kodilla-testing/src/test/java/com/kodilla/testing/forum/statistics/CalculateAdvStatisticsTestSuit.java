@@ -7,7 +7,9 @@ import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 
+import java.util.ArrayList;
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import static org.mockito.Mockito.when;
@@ -53,26 +55,16 @@ public class CalculateAdvStatisticsTestSuit {
         //Given
         StatisticsCalculator statisticsCalculator =  new StatisticsCalculator(statisticsMock);
         Map <String, Integer> advMockStatistics = generateMapOfStatistics(0, 0, 0);
-        //int expectedAveragePostsPerUser = advMockStatistics.get("averagePostsForUser");
-        //int expectedAverageCommentsForUser = advMockStatistics.get("averageCommentsForUser");
-        //int expectedAverageCommentsForPost = advMockStatistics.get("averageCommentsForPost");
+        List<String> listNames = new ArrayList<>();
 
-        when(statisticsCalculator.calculateAdvStatistics(statisticsMock)).thenReturn(generateMapOfStatistics(0,0,0));
-
-
-        //when(statisticsMock.userNames()).thenReturn();
-        //when(statisticsMock.commentsCount()).thenReturn(0);
-        //when(statisticsMock.postCount()).thenReturn(0);
+        when(statisticsMock.commentsCount()).thenReturn(advMockStatistics.get("numberOfComments"));
+        when(statisticsMock.userNames()).thenReturn(listNames);
+        when(statisticsMock.postCount()).thenReturn(advMockStatistics.get("numberOfPosts"));
 
         //when
         Map<String, Integer> advMockStatistics2 = statisticsCalculator.calculateAdvStatistics(statisticsMock);
-        //int averagePostsPerUser = statisticsCalculator.calculateAdvStatistics(statisticsMock).get("averagePostsForUser");
-        //int averageCommentsPerUser = statisticsCalculator.calculateAdvStatistics(statisticsMock).get("averageCommentsForUser");
-        //int averageCommentsPerPost = statisticsCalculator.calculateAdvStatistics(statisticsMock).get("averageCommentsForPost");
+
         //Then
-        //Assertions.assertEquals(expectedAveragePostsPerUser, averagePostsPerUser);
-        //Assertions.assertEquals(expectedAverageCommentsForUser, averageCommentsPerUser);
-        //Assertions.assertEquals(expectedAverageCommentsForPost, averageCommentsPerPost);
         Assertions.assertIterableEquals(advMockStatistics.values(),advMockStatistics2.values() );
     }
 

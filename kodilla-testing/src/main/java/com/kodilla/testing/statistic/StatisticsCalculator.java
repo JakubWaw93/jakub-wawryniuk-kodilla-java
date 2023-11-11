@@ -33,14 +33,14 @@ public class StatisticsCalculator {
 
     public Map<String, Integer> calculateAdvStatistics(Statistics statistics) {
         Map<String, Integer> advStatistics = new HashMap<>();
-        //numberOfUsers = userNames().size();
-        numberOfUsers = 52;
+        numberOfUsers = userNames().size();
+        //numberOfUsers = 52;
         advStatistics.put("numberOfUsers", numberOfUsers);
-        //numberOfPosts = statistics.postCount();
-        numberOfPosts = 421;
+        numberOfPosts = statistics.postCount();
+        //numberOfPosts = 421;
         advStatistics.put("numberOfPosts", numberOfPosts);
-        //numberOfComments = statistics.commentsCount();
-        numberOfComments = 6754;
+        numberOfComments = statistics.commentsCount();
+        //numberOfComments = 6754;
         advStatistics.put("numberOfComments", numberOfComments);
         if(numberOfUsers>0) {
             averagePostsForUser = numberOfPosts / numberOfUsers;
