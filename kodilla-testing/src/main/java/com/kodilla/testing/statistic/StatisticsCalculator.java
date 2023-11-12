@@ -21,26 +21,23 @@ public class StatisticsCalculator {
         this.statistics = statistics;
     }
 
-    public List<String> userNames(){
+    /*public List<String> userNames(){
         List<String> namesList = statistics.userNames();
         return namesList;
     }
     public int commentsCount(){
         int commentsCount = statistics.commentsCount();
         return commentsCount;
-    }
+    }*/
 
 
     public Map<String, Integer> calculateAdvStatistics(Statistics statistics) {
         Map<String, Integer> advStatistics = new HashMap<>();
-        numberOfUsers = userNames().size();
-        //numberOfUsers = 52;
+        numberOfUsers = statistics.userNames().size();
         advStatistics.put("numberOfUsers", numberOfUsers);
         numberOfPosts = statistics.postCount();
-        //numberOfPosts = 421;
         advStatistics.put("numberOfPosts", numberOfPosts);
         numberOfComments = statistics.commentsCount();
-        //numberOfComments = 6754;
         advStatistics.put("numberOfComments", numberOfComments);
         if(numberOfUsers>0) {
             averagePostsForUser = numberOfPosts / numberOfUsers;
@@ -48,6 +45,7 @@ public class StatisticsCalculator {
             advStatistics.put("averagePostForUser", averagePostsForUser);
             advStatistics.put("averageCommentsForUser", averageCommentsForUser);
         }else{
+            System.out.println("There are no users here.");
             averagePostsForUser = 0;
             averageCommentsForUser = 0;
             advStatistics.put("averagePostForUser", averagePostsForUser);
@@ -57,8 +55,12 @@ public class StatisticsCalculator {
             averageCommentsForPost = numberOfComments / numberOfPosts;
             advStatistics.put("averageCommentsForPost", averageCommentsForPost);
         }else{
+            System.out.println("There are no posts here.");
             averageCommentsForPost = 0;
             advStatistics.put("averageCommentsForPost", averageCommentsForPost);
+        }
+        if(numberOfComments<=0){
+            System.out.println("There are no comments here.");
         }
 
         return advStatistics;
