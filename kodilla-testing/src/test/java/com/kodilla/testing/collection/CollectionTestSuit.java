@@ -51,11 +51,6 @@ public class CollectionTestSuit {
         //When
         List<Integer> result = exterminator.exterminate(normalList);
         //Then
-        /*List<Integer> evensFromNormalList = new ArrayList<>();
-        evensFromNormalList.add(4);
-        evensFromNormalList.add(6);
-        evensFromNormalList.add(0);
-        evensFromNormalList.add(8);*/
         List evensFromNormalList = Arrays.asList(4, 6, 0, 8);
         System.out.println("Testing normal List");
         Assertions.assertEquals(evensFromNormalList, result );

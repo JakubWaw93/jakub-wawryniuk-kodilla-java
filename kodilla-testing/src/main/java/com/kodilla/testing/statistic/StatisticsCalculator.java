@@ -21,14 +21,6 @@ public class StatisticsCalculator {
         this.statistics = statistics;
     }
 
-    /*public List<String> userNames(){
-        List<String> namesList = statistics.userNames();
-        return namesList;
-    }
-    public int commentsCount(){
-        int commentsCount = statistics.commentsCount();
-        return commentsCount;
-    }*/
 
 
     public Map<String, Integer> calculateAdvStatistics(Statistics statistics) {

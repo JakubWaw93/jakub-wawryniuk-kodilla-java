@@ -87,13 +87,11 @@ public class ShapeCollectorTestSuit{
             Circle circle2 = new Circle(12);
             collector.addFigure(square);
             collector.addFigure(circle);
-            //collector.addFigure(circle1);
             //When
             ArrayList<Shape> result = collector.showFigures();
             ArrayList<Shape> expectedResult = new ArrayList<>();
             expectedResult.add(square);
             expectedResult.add(circle);
-            //expectedResult.add(circle2);
             //Then
             Assertions.assertIterableEquals(result, expectedResult);
 
