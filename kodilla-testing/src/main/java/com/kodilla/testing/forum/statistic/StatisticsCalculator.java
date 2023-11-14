@@ -1,8 +1,6 @@
-package com.kodilla.testing.statistic;
+package com.kodilla.testing.forum.statistic;
 
-import java.util.ArrayList;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 public class StatisticsCalculator {

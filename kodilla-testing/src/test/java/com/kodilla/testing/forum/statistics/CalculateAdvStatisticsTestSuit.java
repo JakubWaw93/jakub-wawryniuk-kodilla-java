@@ -1,7 +1,7 @@
 package com.kodilla.testing.forum.statistics;
 
-import com.kodilla.testing.statistic.Statistics;
-import com.kodilla.testing.statistic.StatisticsCalculator;
+import com.kodilla.testing.forum.statistic.Statistics;
+import com.kodilla.testing.forum.statistic.StatisticsCalculator;
 import org.junit.jupiter.api.*;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.Mock;
@@ -79,7 +79,7 @@ public class CalculateAdvStatisticsTestSuit {
     private List<String> generateListOfNames(int n) {
         List<String> listOfNames = new ArrayList<>();
         for (int i = 0; i < n; i++) {
-            listOfNames.add("Name" + n);
+            listOfNames.add("Name" + i);
         }
         return listOfNames;
     }
