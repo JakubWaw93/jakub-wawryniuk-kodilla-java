@@ -18,7 +18,7 @@ public class WorldTestSuit {
         Continent europe = new Continent("Europe",new ArrayList<>());
         europe.addCountry(new Country("France", new BigDecimal(67750000)));
         europe.addCountry(new Country("Germany", new BigDecimal(83200000)));
-        europe.addCountry(new Country("France", new BigDecimal(37750000)));
+        europe.addCountry(new Country("Poland", new BigDecimal(37750000)));
         Continent africa = new Continent("Africa",new ArrayList<>());
         africa.addCountry(new Country("Egypt", new BigDecimal(109300000)));
         africa.addCountry(new Country("Liban", new BigDecimal(5593000)));
