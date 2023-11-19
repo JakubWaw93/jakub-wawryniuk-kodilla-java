@@ -15,7 +15,7 @@ public class ArrayOperationsTestSuite implements ArrayOperations {
 
         //Then
         double expectedAverage = 28.57;
-        Assertions.assertEquals(expectedAverage,average,00.1);
+        Assertions.assertEquals(expectedAverage,average,0.01);
 
 
     }
