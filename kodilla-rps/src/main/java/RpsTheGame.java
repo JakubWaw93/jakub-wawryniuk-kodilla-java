@@ -1,24 +1,42 @@
 import java.util.*;
+import java.util.random.RandomGenerator;
 
 public class RpsTheGame {
-    private HumanPlayer player;
-    private ComputerPlayer computerPlayer;
+    private String playerName;
+    private Sign computerSign;
+    private Sign playerSign;
     private int playerPoints;
     private int computerPoints;
     private int numberOfRounds;
     private int round =1 ;
     boolean end = false;
 
+
+    public void setPlayerSign(int n) {
+        List<Sign> signs = new ArrayList<>();
+        signs.add(new Rock("Rock"));
+        signs.add(new Paper("Paper"));
+        signs.add(new Scissors("Scissors"));
+        this.playerSign = signs.get(n-1);
+    }
+
+    public void setComputerSign(){
+        RandomGenerator random = new Random();
+        int n = random.nextInt(3);
+        List<Sign> signs = new ArrayList<>();
+        signs.add(new Rock("Rock"));
+        signs.add(new Paper("Paper"));
+        signs.add(new Scissors("Scissors"));
+        this.computerSign = signs.get(n);
+    }
     public void theGame(){
         Scanner input = new Scanner(System.in);
 
         System.out.println("Choose your name.");
-        String name = input.nextLine();
+        playerName = input.nextLine();
         playerPoints =0;
-        player = new HumanPlayer(name, null);
-        System.out.println("Welcome " + player.getName());
+        System.out.println("Welcome " + playerName);
         computerPoints = 0;
-        computerPlayer = new ComputerPlayer(null);
 
         System.out.println("How many rounds would You like to play?");
         numberOfRounds = input.nextInt();
@@ -42,35 +60,52 @@ public class RpsTheGame {
 
             String playerChoice = input.nextLine();
             if (Integer.parseInt(playerChoice)==1||Integer.parseInt(playerChoice)==2||Integer.parseInt(playerChoice)==3) {
-                player.setPlayerSign(Integer.parseInt(playerChoice));
-                computerPlayer.setComputerSign();
+                setPlayerSign(Integer.parseInt(playerChoice));
+                setComputerSign();
                 System.out.println("Round "+round+" of "+numberOfRounds);
-                System.out.println(player.getName() + " choose" + player.getPlayerSign() + "!");
-                System.out.println("I choose" + computerPlayer.getComputerSign() + "!");
-                if (player.getPlayerSign().battle(computerPlayer.getComputerSign())) {
+                System.out.println(playerName + " choose" + playerSign + "!");
+                System.out.println("I choose" + computerSign + "!");
+                if (playerSign.battle(computerSign)) {
                     playerPoints++;
                     System.out.println("You Win!");
-                }
-                if (computerPlayer.getComputerSign().battle(player.getPlayerSign())) {
+                }else if (computerSign.battle(playerSign)) {
                     computerPoints++;
                     System.out.println("You Loose!");
-                }
-                if (player.getPlayerSign().equals(computerPlayer.getComputerSign())){
+                }else if (playerSign.equals(computerSign)){
                     System.out.println("We have a draw...");
                 }
-                System.out.println("Player  "+name+" points: "+playerPoints);
+                System.out.println("Player  "+playerName+" points: "+playerPoints);
                 System.out.println("Computer points: "+computerPoints);
-
                 round++;
-            }
-            if (playerChoice.equals("x")){
+                    if (round>numberOfRounds){
+                        if (playerPoints>computerPoints){
+                            System.out.println("You are the winner!");
+                        } else if (playerPoints<computerPoints){
+                            System.out.println("You are the loser!");
+                        }else{
+                            System.out.println("We end this duel with a draw.");
+                        }
+                        System.out.println("Do You want to fight me one more time ('n'), or leave ('x')?");
+                        String finalDecision = input.nextLine();
+                        if (finalDecision.equals("n")){
+                            System.out.println("How many rounds would You like to play?");
+                            numberOfRounds=input.nextInt();
+                            round=1;
+                            playerPoints=0;
+                            computerPoints=0;
+                        } else {
+                            end=true;
+                        }
+
+                    }
+
+            } else if (playerChoice.equals("x")){
                 System.out.println("Are You sure You want to leave? Y/N");
                 String confirmation = input.nextLine();
                 if (confirmation.equals("Y")){
                     end = true;
                 }
-            }
-            if (playerChoice.equals("n")){
+            } else if (playerChoice.equals("n")){
                 System.out.println("Are You sure You want to start over again? Y/N");
                 String confirmation = input.nextLine();
                 if (confirmation.equals("Y")){
@@ -78,31 +113,14 @@ public class RpsTheGame {
                     playerPoints=0;
                     computerPoints=0;
                 }
+            } else {
+                System.out.println("Check out possible options and Try again");
             }
-            if (round>numberOfRounds){
-                if (playerPoints>computerPoints){
-                    System.out.println("You are the winner!");
-                } else if (playerPoints<computerPoints){
-                    System.out.println("You are the loser!");
-                }else{
-                    System.out.println("We end this duel with a draw.");
-                }
-                System.out.println("Do You want to fight me one more time ('n'), or leave ('x')?");
-                String finalDecision = input.nextLine();
-                if (finalDecision.equals("n")){
-                    System.out.println("How many rounds would You like to play?");
-                    numberOfRounds=input.nextInt();
-                    round=1;
-                    playerPoints=0;
-                    computerPoints=0;
-                } else {
-                    end=true;
-                }
 
-            }
 
 
         }
+        System.out.println("Until next time.");
     }
 
 }
