@@ -1,22 +1,22 @@
 import java.util.Objects;
 
-public class Paper implements Sign {
+public class Spock implements Sign{
     private String name;
 
-    public Paper(String name) {
+    public Spock(String name) {
         this.name = name;
     }
 
-    public boolean battle(Sign sign){
-        if (sign.equals(new Rock("Rock"))){
-            System.out.println("Paper covers Stone!");
+    @Override
+    public boolean battle(Sign sign) {
+        if (sign.equals(new Scissors("Scissors"))){
+            System.out.println("Spock smashes Scissors!");
             return true;
-        }else if (sign.equals(new Spock("Spock"))) {
-            System.out.println("Paper disproves Spock!");
+        }else if(sign.equals(new Rock("Rock"))) {
+            System.out.println("Spock vaporizes Rock!");
             return true;
-        }else {
-            return false;
         }
+        return false;
     }
 
     @Override
@@ -24,9 +24,9 @@ public class Paper implements Sign {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Paper paper = (Paper) o;
+        Spock spock = (Spock) o;
 
-        return Objects.equals(name, paper.name);
+        return Objects.equals(name, spock.name);
     }
 
     @Override
@@ -36,6 +36,6 @@ public class Paper implements Sign {
 
     @Override
     public String toString() {
-        return ": Paper";
+        return ": Spock";
     }
 }

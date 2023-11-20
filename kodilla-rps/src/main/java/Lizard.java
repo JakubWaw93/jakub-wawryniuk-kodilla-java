@@ -1,31 +1,33 @@
 import java.util.Objects;
 
-public class Scissors implements Sign {
+public class Lizard implements Sign{
     private String name;
 
-    public Scissors(String name) {
+    public Lizard(String name) {
         this.name = name;
     }
 
-    public boolean battle(Sign sign){
-        if (sign.equals(new Paper("Paper"))) {
-            System.out.println("Scissors cuts Paper!");
+    @Override
+    public boolean battle(Sign sign) {
+        if (sign.equals(new Paper("Paper"))){
+            System.out.println("Lizard eats Paper!");
             return true;
-        }else if (sign.equals(new Lizard("Lizard"))){
-            System.out.println("Scissors decapitates Lizard!");
+        }else if(sign.equals(new Spock("Spock"))) {
+            System.out.println("Lizard poisons Spock!");
             return true;
         }else {
             return false;
         }
     }
+
     @Override
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
 
-        Scissors scissors = (Scissors) o;
+        Lizard lizard = (Lizard) o;
 
-        return Objects.equals(name, scissors.name);
+        return Objects.equals(name, lizard.name);
     }
 
     @Override
@@ -35,6 +37,6 @@ public class Scissors implements Sign {
 
     @Override
     public String toString() {
-        return ": Scissors";
+        return ": Lizard";
     }
 }

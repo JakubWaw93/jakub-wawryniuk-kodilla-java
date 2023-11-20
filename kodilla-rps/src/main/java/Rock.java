@@ -8,14 +8,15 @@ public class Rock implements Sign {
     }
 
     public boolean battle(Sign sign){
-        if (sign.equals(new Scissors("Scissors"))) {
+        if (sign.equals(new Scissors("Scissors"))){
+            System.out.println("The Rock crushes Scissors!");
             return true;
+        }else if (sign.equals(new Lizard("Lizard"))){
+            System.out.println("The Rock crushes Lizard!");
+            return true;
+        }else {
+            return false;
         }
-        return false;
-    }
-
-    public String getName() {
-        return name;
     }
 
     @Override

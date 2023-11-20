@@ -5,8 +5,8 @@ public class RpsTheGame {
     private String playerName;
     private Sign computerSign;
     private Sign playerSign;
-    private int playerPoints;
-    private int computerPoints;
+    private int playerPoints =0;
+    private int computerPoints =0;
     private int pointsToWin;
     private int round =1 ;
     private boolean end = false;
@@ -18,45 +18,61 @@ public class RpsTheGame {
         signs.add(new Rock("Rock"));
         signs.add(new Paper("Paper"));
         signs.add(new Scissors("Scissors"));
+        signs.add(new Lizard("Lizard"));
+        signs.add(new Spock("Spock"));
         this.playerSign = signs.get(n-1);
     }
 
     public void setComputerSign(){
         RandomGenerator random = new Random();
-        int n = random.nextInt(3);
+        int n = random.nextInt(5);
         List<Sign> signs = new ArrayList<>();
         signs.add(new Rock("Rock"));
         signs.add(new Paper("Paper"));
         signs.add(new Scissors("Scissors"));
+        signs.add(new Lizard("Lizard"));
+        signs.add(new Spock("Spock"));
         this.computerSign = signs.get(n);
     }
 
     Scanner input = new Scanner(System.in);
 
     public void setNameAndPointsToWin(){
+        playerPoints=0;
+        computerPoints=0;
 
-        System.out.println("Choose your name.");
+        System.out.println("What is Your name?");
         playerName = input.nextLine();
-        playerPoints =0;
         System.out.println("Welcome " + playerName);
-        computerPoints = 0;
-
         System.out.println("How many points will be needed to win?");
+        if (input.hasNextInt()){
         pointsToWin = input.nextInt();
-        input.nextLine();
+            input.nextLine();
+            if (pointsToWin>0){
         System.out.println("Excellent! Our battle will continue until someone gets " + pointsToWin + " point(s).");
+            } else {
+                System.out.println("Choose number bigger than zero, let's try again.");
+                theGame();
+            }
+        } else {
+            input.nextLine();
+            System.out.println("Choose a number, lets start form the beginning.");
+            theGame();
+        }
+
 
     }
 
     public void instructions(){
         System.out.println("Before we start You need to learn a few things:");
-        System.out.println("Key 1 - You play rock");
-        System.out.println("Key 2 - You play paper");
-        System.out.println("Key 3 - You play scissors");
+        System.out.println("Key 1 - You play Rock");
+        System.out.println("Key 2 - You play Paper");
+        System.out.println("Key 3 - You play Scissors");
+        System.out.println("Key 4 - You play Lizard");
+        System.out.println("Key 5 - You play Spock");
         System.out.println("Key x - You leave the game, \nbut I will ask You if You are sure about that");
         System.out.println("Key n - Our game will start from the beginning, \nyet again, i will ask if You want to leave current game");
         System.out.println();
-        System.out.println("Let us begin!");
     }
 
     public void makeAWeaponChoice(){
@@ -65,7 +81,7 @@ public class RpsTheGame {
     }
 
     public void setUpForBattle(){
-        if (playerChoice.equals("1")|| playerChoice.equals("2")|| playerChoice.equals("3")) {
+        if (playerChoice.equals("1")|| playerChoice.equals("2")|| playerChoice.equals("3")|| playerChoice.equals("4")|| playerChoice.equals("5")) {
             setPlayerSign(Integer.parseInt(playerChoice));
             setComputerSign();
             System.out.println("Round: "+round);
@@ -86,10 +102,9 @@ public class RpsTheGame {
         } else if (playerChoice.equals("n")){
             System.out.println("Are You sure You want to start over again? Y/N");
             String confirmation2 = input.next();
+            input.nextLine();
             if (confirmation2.equals("Y")){
                 round=1;
-                playerPoints=0;
-                computerPoints=0;
                 theGame();
             } else if (confirmation2.equals("N")){
                 theGameLoop();
@@ -99,6 +114,7 @@ public class RpsTheGame {
             }
         }else{
             System.out.println("Choose correct option!");
+            instructions();
             theGameLoop();
         }
     }
@@ -112,13 +128,10 @@ public class RpsTheGame {
             }
             System.out.println("Do You want to fight me one more time ('Y'), or leave ('N')?");
             String finalDecision = input.next();
+            input.nextLine();
             if (finalDecision.equals("Y")) {
-                System.out.println("How many points will be needed to win?");
-                pointsToWin = input.nextInt();
-                round = 1;
-                playerPoints = 0;
-                computerPoints = 0;
-                theGameLoop();
+                System.out.println("Tell me one more time...");
+                theGame();
             } else if (finalDecision.equals("N")){
                 end = true;
                 System.out.println("Until next time.");
@@ -158,8 +171,6 @@ public class RpsTheGame {
         setNameAndPointsToWin();
         instructions();
         theGameLoop();
-
-
 
     }
 
