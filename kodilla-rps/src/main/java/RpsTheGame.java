@@ -168,8 +168,8 @@ public class RpsTheGame {
     }
     public void theGame(){
 
-        setNameAndPointsToWin();
         instructions();
+        setNameAndPointsToWin();
         theGameLoop();
 
     }
