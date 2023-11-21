@@ -3,15 +3,14 @@ import java.util.Objects;
 public class Scissors implements Sign {
     private String name;
 
-    public Scissors(String name) {
-        this.name = name;
+    public Scissors( ) {
     }
 
     public boolean battle(Sign sign){
-        if (sign.equals(new Paper("Paper"))) {
+        if (sign.equals(new Paper())) {
             System.out.println("Scissors cuts Paper!");
             return true;
-        }else if (sign.equals(new Lizard("Lizard"))){
+        }else if (sign.equals(new Lizard())){
             System.out.println("Scissors decapitates Lizard!");
             return true;
         }else {

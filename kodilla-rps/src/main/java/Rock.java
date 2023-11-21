@@ -3,15 +3,14 @@ import java.util.Objects;
 public class Rock implements Sign {
     private String name;
 
-    public Rock(String name) {
-        this.name = name;
+    public Rock() {
     }
 
     public boolean battle(Sign sign){
-        if (sign.equals(new Scissors("Scissors"))){
+        if (sign.equals(new Scissors())){
             System.out.println("The Rock crushes Scissors!");
             return true;
-        }else if (sign.equals(new Lizard("Lizard"))){
+        }else if (sign.equals(new Lizard())){
             System.out.println("The Rock crushes Lizard!");
             return true;
         }else {

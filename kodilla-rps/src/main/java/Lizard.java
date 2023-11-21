@@ -3,16 +3,15 @@ import java.util.Objects;
 public class Lizard implements Sign{
     private String name;
 
-    public Lizard(String name) {
-        this.name = name;
+    public Lizard( ) {
     }
 
     @Override
     public boolean battle(Sign sign) {
-        if (sign.equals(new Paper("Paper"))){
+        if (sign.equals(new Paper())){
             System.out.println("Lizard eats Paper!");
             return true;
-        }else if(sign.equals(new Spock("Spock"))) {
+        }else if(sign.equals(new Spock())) {
             System.out.println("Lizard poisons Spock!");
             return true;
         }else {

@@ -3,16 +3,15 @@ import java.util.Objects;
 public class Spock implements Sign{
     private String name;
 
-    public Spock(String name) {
-        this.name = name;
+    public Spock() {
     }
 
     @Override
     public boolean battle(Sign sign) {
-        if (sign.equals(new Scissors("Scissors"))){
+        if (sign.equals(new Scissors())){
             System.out.println("Spock smashes Scissors!");
             return true;
-        }else if(sign.equals(new Rock("Rock"))) {
+        }else if(sign.equals(new Rock())) {
             System.out.println("Spock vaporizes Rock!");
             return true;
         }

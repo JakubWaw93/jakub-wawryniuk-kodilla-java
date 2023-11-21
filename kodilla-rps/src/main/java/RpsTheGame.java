@@ -15,11 +15,11 @@ public class RpsTheGame {
 
     public void setPlayerSign(int n) {
         List<Sign> signs = new ArrayList<>();
-        signs.add(new Rock("Rock"));
-        signs.add(new Paper("Paper"));
-        signs.add(new Scissors("Scissors"));
-        signs.add(new Lizard("Lizard"));
-        signs.add(new Spock("Spock"));
+        signs.add(new Rock());
+        signs.add(new Paper());
+        signs.add(new Scissors());
+        signs.add(new Lizard());
+        signs.add(new Spock());
         this.playerSign = signs.get(n-1);
     }
 
@@ -27,11 +27,11 @@ public class RpsTheGame {
         RandomGenerator random = new Random();
         int n = random.nextInt(5);
         List<Sign> signs = new ArrayList<>();
-        signs.add(new Rock("Rock"));
-        signs.add(new Paper("Paper"));
-        signs.add(new Scissors("Scissors"));
-        signs.add(new Lizard("Lizard"));
-        signs.add(new Spock("Spock"));
+        signs.add(new Rock());
+        signs.add(new Paper());
+        signs.add(new Scissors());
+        signs.add(new Lizard());
+        signs.add(new Spock());
         this.computerSign = signs.get(n);
     }
 
