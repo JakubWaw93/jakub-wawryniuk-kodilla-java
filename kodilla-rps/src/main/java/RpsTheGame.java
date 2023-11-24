@@ -40,6 +40,7 @@ public class RpsTheGame {
     public void setNameAndPointsToWin(){
         playerPoints=0;
         computerPoints=0;
+        round=1;
 
         System.out.println("What is Your name?");
         playerName = input.nextLine();
@@ -107,7 +108,7 @@ public class RpsTheGame {
                 round=1;
                 theGame();
             } else if (confirmation2.equals("N")){
-                theGameLoop();
+                end=true;
             } else{
                 System.out.println("Choose correct option!");
                 setUpForBattle();
@@ -167,11 +168,9 @@ public class RpsTheGame {
         }
     }
     public void theGame(){
-
-        instructions();
         setNameAndPointsToWin();
+        instructions();
         theGameLoop();
-
     }
 
 }
