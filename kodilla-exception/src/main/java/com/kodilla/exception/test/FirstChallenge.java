@@ -20,7 +20,7 @@ public class FirstChallenge {
         } catch (ArithmeticException e){
             System.out.println("Dividing by zero is impossible: " +e );
         } finally {
-            System.out.println("The end of dividing");
+            System.out.println("The end of 'divide' method");
         }
 
 
