@@ -3,8 +3,8 @@ import java.util.random.RandomGenerator;
 
 public class RpsTheGame {
     private String playerName;
-    private Sign computerSign;
-    private Sign playerSign;
+    private String computerSign;
+    private String playerSign;
     private int playerPoints =0;
     private int computerPoints =0;
     private int pointsToWin;
@@ -12,40 +12,77 @@ public class RpsTheGame {
     private boolean end = false;
     private String playerChoice;
 
+    Scanner input = new Scanner(System.in);
 
+    public List<String> makeListWithSigns(){
+        List<String> listWithSigns = new ArrayList<>();
+        listWithSigns.add("Rock");
+        listWithSigns.add("Paper");
+        listWithSigns.add("Scissors");
+        listWithSigns.add("Lizard");
+        listWithSigns.add("Spock");
+        return listWithSigns;
+    }
     public void setPlayerSign(int n) {
-        List<Sign> signs = new ArrayList<>();
-        signs.add(new Rock());
-        signs.add(new Paper());
-        signs.add(new Scissors());
-        signs.add(new Lizard());
-        signs.add(new Spock());
+        List<String> signs = makeListWithSigns();
         this.playerSign = signs.get(n-1);
     }
 
     public void setComputerSign(){
         RandomGenerator random = new Random();
         int n = random.nextInt(5);
-        List<Sign> signs = new ArrayList<>();
-        signs.add(new Rock());
-        signs.add(new Paper());
-        signs.add(new Scissors());
-        signs.add(new Lizard());
-        signs.add(new Spock());
+        List<String> signs = makeListWithSigns();
         this.computerSign = signs.get(n);
     }
 
-    Scanner input = new Scanner(System.in);
+    public boolean battle(String sign1, String sign2){
+        if (sign1.equals("Rock") && sign2.equals("Scissors")){
+            System.out.println("The Rock crushes Scissors!");
+            return true;
+        }else if (sign1.equals("Rock") && sign2.equals("Lizard")){
+            System.out.println("The Rock crushes Lizard!");
+            return true;
+        }else if (sign1.equals("Paper") && sign2.equals("Rock")){
+            System.out.println("Paper covers Rock!");
+            return true;
+        }else if (sign1.equals("Paper") && sign2.equals("Spock")) {
+            System.out.println("Paper disproves Spock!");
+            return true;
+        } else if (sign1.equals("Scissors") && sign2.equals("Paper")) {
+            System.out.println("Scissors cuts Paper!");
+            return true;
+        }else if (sign1.equals("Scissors") && sign2.equals("Lizard")){
+            System.out.println("Scissors decapitates Lizard!");
+            return true;
+        }else if (sign1.equals("Lizard") && sign2.equals("Paper")){
+            System.out.println("Lizard eats Paper!");
+            return true;
+        }else if(sign1.equals("Lizard") && sign2.equals("Spock")) {
+            System.out.println("Lizard poisons Spock!");
+            return true;
+        }else if (sign1.equals("Spock") && sign2.equals("Scissors")){
+            System.out.println("Spock smashes Scissors!");
+            return true;
+        }else if(sign1.equals("Spock") && sign2.equals("Rock")) {
+            System.out.println("Spock vaporizes Rock!");
+            return true;
+        } else {
+        return false;
+        }
+    }
 
-    public void setNameAndPointsToWin(){
-        playerPoints=0;
-        computerPoints=0;
-        round=1;
-
+    public void setName(){
         System.out.println("What is Your name?");
         playerName = input.nextLine();
         System.out.println("Welcome " + playerName);
-        System.out.println("How many points will be needed to win?");
+        }
+    public void setPointsToWin(){
+        playerPoints=0;
+        computerPoints=0;
+        round=1;
+        end=false;
+
+        System.out.println("How many points to win?");
         if (input.hasNextInt()){
         pointsToWin = input.nextInt();
             input.nextLine();
@@ -53,15 +90,13 @@ public class RpsTheGame {
         System.out.println("Excellent! Our battle will continue until someone gets " + pointsToWin + " point(s).");
             } else {
                 System.out.println("Choose number bigger than zero, let's try again.");
-                theGame();
+                setPointsToWin();
             }
         } else {
             input.nextLine();
-            System.out.println("Choose a number, lets start form the beginning.");
-            theGame();
+            System.out.println("Choose a number!");
+            setPointsToWin();
         }
-
-
     }
 
     public void instructions(){
@@ -82,41 +117,46 @@ public class RpsTheGame {
     }
 
     public void setUpForBattle(){
-        if (playerChoice.equals("1")|| playerChoice.equals("2")|| playerChoice.equals("3")|| playerChoice.equals("4")|| playerChoice.equals("5")) {
-            setPlayerSign(Integer.parseInt(playerChoice));
-            setComputerSign();
-            System.out.println("Round: "+round);
-            System.out.println(playerName + " choose" + playerSign + "!");
-            System.out.println("I choose" + computerSign + "!");
-        } else if (playerChoice.equals("x")){
-            System.out.println("Are You sure You want to leave? Y/N");
-            String confirmation = input.next();
-            if (confirmation.equals("Y")){
-                end = true;
-                System.out.println("Until next time.");
-            }else if(confirmation.equals("N")){
+        switch (playerChoice) {
+            case "1", "2", "3", "4", "5" -> {
+                setPlayerSign(Integer.parseInt(playerChoice));
+                setComputerSign();
+                System.out.println("Round: " + round);
+                System.out.println(playerName + " choose: " + playerSign + "!");
+                System.out.println("I choose: " + computerSign + "!");
+            }
+            case "x" -> {
+                System.out.println("Are You sure You want to leave? Y/N");
+                String confirmation = input.next();
+                if (confirmation.equals("Y")) {
+                    end = true;
+                    System.out.println("Until next time.");
+                } else if (confirmation.equals("N")) {
+                    theGameLoop();
+                } else {
+                    System.out.println("Choose correct option!");
+                    setUpForBattle();
+                }
+            }
+            case "n" -> {
+                System.out.println("Are You sure You want to start over again? Y/N");
+                String confirmation2 = input.next();
+                input.nextLine();
+                if (confirmation2.equals("Y")) {
+                    end=true;
+                    theGame();
+                } else if (confirmation2.equals("N")) {
+                    theGameLoop();
+                } else {
+                    System.out.println("Choose correct option!");
+                    setUpForBattle();
+                }
+            }
+            default -> {
+                System.out.println("Choose correct option!");
+                instructions();
                 theGameLoop();
-            }else{
-                System.out.println("Choose correct option!");
-                setUpForBattle();
             }
-        } else if (playerChoice.equals("n")){
-            System.out.println("Are You sure You want to start over again? Y/N");
-            String confirmation2 = input.next();
-            input.nextLine();
-            if (confirmation2.equals("Y")){
-                round=1;
-                theGame();
-            } else if (confirmation2.equals("N")){
-                end=true;
-            } else{
-                System.out.println("Choose correct option!");
-                setUpForBattle();
-            }
-        }else{
-            System.out.println("Choose correct option!");
-            instructions();
-            theGameLoop();
         }
     }
 
@@ -151,10 +191,10 @@ public class RpsTheGame {
                 setUpForBattle();
                 if (!end) {
 
-                    if (playerSign.battle(computerSign)) {
+                    if (battle(playerSign,computerSign)) {
                         playerPoints++;
                         System.out.println("You Win!");
-                    } else if (computerSign.battle(playerSign)) {
+                    } else if (battle(computerSign,playerSign)) {
                         computerPoints++;
                         System.out.println("You Loose!");
                     } else if (playerSign.equals(computerSign)) {
@@ -164,11 +204,15 @@ public class RpsTheGame {
                     System.out.println("Computer points: " + computerPoints);
                     round++;
                 }
-            } endGame();
+            } if (!end) {
+                endGame();
+            }
+
         }
     }
     public void theGame(){
-        setNameAndPointsToWin();
+        setName();
+        setPointsToWin();
         instructions();
         theGameLoop();
     }
