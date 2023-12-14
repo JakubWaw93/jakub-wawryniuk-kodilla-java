@@ -14,7 +14,7 @@ public class ForumTestSuit {
 
     @BeforeAll
     public static void beforeAllTests(){
-        System.out.println("This is the begining of tests.");
+        System.out.println("This is the beginning of tests.");
     }
 
     @AfterAll
@@ -25,7 +25,7 @@ public class ForumTestSuit {
     @BeforeEach
     public void beforeEachTest(){
         testCounter++;
-        System.out.println("Prepering to execute test #"+testCounter);
+        System.out.println("Preparing to execute test #"+testCounter);
     }
 
     @Nested

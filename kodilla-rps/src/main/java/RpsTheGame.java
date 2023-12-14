@@ -85,12 +85,12 @@ public class RpsTheGame {
         System.out.println("How many points to win?");
         if (input.hasNextInt()){
         pointsToWin = input.nextInt();
-            input.nextLine();
+
             if (pointsToWin>0){
         System.out.println("Excellent! Our battle will continue until someone gets " + pointsToWin + " point(s).");
             } else {
                 System.out.println("Choose number bigger than zero, let's try again.");
-                setPointsToWin();
+
             }
         } else {
             input.nextLine();
@@ -203,9 +203,8 @@ public class RpsTheGame {
                     System.out.println("Player  " + playerName + " points: " + playerPoints);
                     System.out.println("Computer points: " + computerPoints);
                     round++;
+                    endGame();
                 }
-            } if (!end) {
-                endGame();
             }
 
         }
