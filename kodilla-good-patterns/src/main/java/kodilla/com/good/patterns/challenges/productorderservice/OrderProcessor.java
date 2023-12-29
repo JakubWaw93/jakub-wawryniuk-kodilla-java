@@ -24,7 +24,7 @@ public class OrderProcessor {
             orderRepository.createOrder(orderRequest.getUser(), orderRequest.getDateOfOrder(), orderRequest.getProduct());
             return new OrderDto(orderRequest.getUser(), true);
         } else {
-            return new OrderDto(orderRequest.getUser(), false);
+            return new OrderDto(orderRequest.getUser() , false);
         }
 
     }
