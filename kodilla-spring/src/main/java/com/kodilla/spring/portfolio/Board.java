@@ -25,8 +25,5 @@ public class Board {
         return doneList;
     }
 
-    public void addTask(TaskList list, String task) {
-        list.getTasks().add(task);
-    }
 
 }
