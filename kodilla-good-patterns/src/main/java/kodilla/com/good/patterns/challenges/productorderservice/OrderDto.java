@@ -5,9 +5,9 @@ public class OrderDto {
     private User user;
     private boolean isSold;
 
-    public OrderDto(User user, boolean isRented) {
+    public OrderDto(User user, boolean isSold) {
         this.user = user;
-        this.isSold = isRented;
+        this.isSold = isSold;
     }
 
     public User getUser() {
