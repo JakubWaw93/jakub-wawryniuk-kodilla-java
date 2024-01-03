@@ -21,9 +21,9 @@ public class BoardTestSuite {
         addTask(board.getDoneList(),"Go for a walk");
 
         //Then
-        System.out.println(board.getToDoList().getTasks().get(0));
-        System.out.println(board.getInProgressList().getTasks().get(0));
-        System.out.println(board.getDoneList().getTasks().get(0));
+        System.out.println(board.getToDoList().getTasks());
+        System.out.println(board.getInProgressList().getTasks());
+        System.out.println(board.getDoneList().getTasks());
     }
 
     private void addTask(TaskList list, String task) {

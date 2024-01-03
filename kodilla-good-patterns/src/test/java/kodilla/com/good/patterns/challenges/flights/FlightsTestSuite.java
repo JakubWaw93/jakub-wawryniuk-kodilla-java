@@ -3,14 +3,9 @@ package kodilla.com.good.patterns.challenges.flights;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
-import org.mockito.Mock;
 
 import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.List;
-
-import static org.junit.jupiter.api.Assertions.*;
-import static org.mockito.Mockito.when;
 
 public class FlightsTestSuite {
 
@@ -23,6 +18,11 @@ public class FlightsTestSuite {
         flightsBoard.addFlight(new Flight("Berlin", "Tokyo", "Egypt", LocalDateTime.of(2024, 1, 2, 21, 0)));
         flightsBoard.addFlight(new Flight("London", "Ankara", "Berlin", LocalDateTime.of(2024, 1, 3, 16, 0)));
 
+    }
+
+    @BeforeEach
+    void notice() {
+        System.out.println("Test begins: ");
     }
 
     @Test
