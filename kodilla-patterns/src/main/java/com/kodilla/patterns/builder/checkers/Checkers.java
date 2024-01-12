@@ -11,7 +11,6 @@ public class Checkers {
         this.playerOne = playerOne;
         this.playerTwo = playerTwo;
     }
-
     public Board getBoard() {
         return board;
     }
@@ -23,7 +22,6 @@ public class Checkers {
     public String getPlayerTwo() {
         return playerTwo;
     }
-
     public static class CheckersBuilder {
 
         private Board board = new Board();
