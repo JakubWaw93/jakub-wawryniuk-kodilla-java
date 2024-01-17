@@ -8,7 +8,7 @@ public class ExtraFoodShopRequestProcessor extends RequestProcessor {
 
     @Override
     public RequestDto process(Request request) {
-        //individual process for making request from this supplier
+        //if individual process for making request from this supplier is needed
         return null;
     }
 }

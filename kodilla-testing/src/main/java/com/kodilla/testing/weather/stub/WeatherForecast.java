@@ -27,8 +27,7 @@ public class WeatherForecast {
         Map<String, Double> resultMap = new HashMap<>();
         double temp = 0;
 
-        for (Map.Entry<String, Double> temperature:
-            temperatures.getTemperatures().entrySet()) {
+        for (Map.Entry<String, Double> temperature: temperatures.getTemperatures().entrySet()) {
             resultMap.put(temperature.getKey(), temperature.getValue());
             temp += temperature.getValue();
         }

@@ -86,8 +86,8 @@ public class BookDirectoryTestSuite {
         BookLibrary bookLibrary = new BookLibrary(libraryDatabaseMock);
 
         // When
-        List<Book> theListOfBooks10 = generateListOfNBooks(10);
-        theListOfBooks10 = bookLibrary.listBooksWithCondition("An");       // [4]
+        //List<Book> theListOfBooks10 = generateListOfNBooks(10);
+        List<Book> theListOfBooks10 = bookLibrary.listBooksWithCondition("An");       // [4]
 
         // Then
         assertEquals(0, theListOfBooks10.size());                                     // [5]
