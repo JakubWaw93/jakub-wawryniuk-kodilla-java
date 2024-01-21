@@ -1,8 +1,6 @@
 package com.kodilla.hibernate.manytomany;
-
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
-
 import java.util.ArrayList;
 import java.util.List;
 
@@ -40,15 +38,15 @@ public class Company {
         return employees;
     }
 
+    private void setEmployees(List<Employee> employees) {
+        this.employees = employees;
+    }
+
     private void setId(int id) {
         this.id = id;
     }
 
     private void setName(String name) {
         this.name = name;
-    }
-
-    private void setEmployees(List<Employee> employees) {
-        this.employees = employees;
     }
 }
