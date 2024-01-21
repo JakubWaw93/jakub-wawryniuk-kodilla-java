@@ -42,7 +42,7 @@ public class Bigmac {
         }
     }
 
-    public Bigmac(final Bun bun,final Burgers burgers,final Sauce sauce, List<Ingredient> ingredients) {
+    private Bigmac(final Bun bun,final Burgers burgers,final Sauce sauce, List<Ingredient> ingredients) {
         this.bun = bun;
         this.burgers = burgers;
         this.sauce = sauce;

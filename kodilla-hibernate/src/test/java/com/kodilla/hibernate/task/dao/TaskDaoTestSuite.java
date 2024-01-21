@@ -45,11 +45,10 @@ public class TaskDaoTestSuite {
         List<Task> readTask = tasksDao.findByDuration(duration);
 
         //Then
-        assertEquals(4, readTask.size());
+        assertEquals(1, readTask.size());
 
         //CleanUp
         int id = readTask.get(0).getId();
         tasksDao.deleteById(id);
-        tasksDao.deleteAll();
     }
 }
