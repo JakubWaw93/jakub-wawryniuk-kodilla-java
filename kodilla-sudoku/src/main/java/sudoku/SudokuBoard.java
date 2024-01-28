@@ -5,7 +5,7 @@ import java.util.List;
 
 public class SudokuBoard {
 
-    private List<SudokuRow> sudokuBoard = new ArrayList<>();
+    private static List<SudokuRow> sudokuBoard = new ArrayList<>();
 
     public SudokuBoard() {
         for (int i = 0; i < 9; i++) {
