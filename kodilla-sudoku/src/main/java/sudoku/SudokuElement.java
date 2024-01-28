@@ -30,6 +30,10 @@ public class SudokuElement {
         this.value = value;
     }
 
+    public List<Integer> getPossibleValues() {
+        return possibleValues;
+    }
+
     @Override
     public String toString() {
         String result;
