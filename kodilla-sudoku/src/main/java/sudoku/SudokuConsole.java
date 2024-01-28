@@ -9,12 +9,15 @@ public class SudokuConsole {
 
     public static int howManyNumbers() {
         System.out.println("How many numbers  do You want to put in the Board?");
-        return input.nextInt();
+        int result =  input.nextInt();
+        input.nextLine();
+        return result;
     }
 
 
     public static String chooseAnElementAndNumber() {
         System.out.println("Choose a row (1-9), an element (1-9), a number to put in (1-9): ");
+        //input.nextLine();
         return input.nextLine();
     }
 
