@@ -2,15 +2,13 @@ package com.kodilla.sudoku;
 
 public class SolvingMechanics {
 
-    public SudokuBoard sudokuCheck(SudokuBoard sudokuBoard) {
+    public SudokuBoard singleLoopSudokuSolver(SudokuBoard sudokuBoard) {
         for (int i = 0; i < sudokuBoard.getSudokuBoard().size(); i++) {
             for (int j = 0; j < sudokuBoard.getSudokuBoard().size(); j++) {
                 if (sudokuBoard.getSudokuBoard().get(i).getSudokuRow().get(j).getValue() == SudokuElement.EMPTY) {
                     for (int k = 0; k < sudokuBoard.getSudokuBoard().size(); k++) {
                         sudokuBoard.getSudokuBoard().get(i).getSudokuRow().get(j).getPossibleValues().remove(Integer.valueOf(sudokuBoard.getSudokuBoard().get(i).getSudokuRow().get(k).getValue()));
-                    }
-                    for (int l = 0; l < sudokuBoard.getSudokuBoard().size(); l++) {
-                        sudokuBoard.getSudokuBoard().get(i).getSudokuRow().get(j).getPossibleValues().remove(Integer.valueOf(sudokuBoard.getSudokuBoard().get(l).getSudokuRow().get(j).getValue()));
+                        sudokuBoard.getSudokuBoard().get(i).getSudokuRow().get(j).getPossibleValues().remove(Integer.valueOf(sudokuBoard.getSudokuBoard().get(k).getSudokuRow().get(j).getValue()));
                     }
                     if (i < 3) {
                         for (int l1 = 0; l1 < 3; l1++) {
@@ -28,7 +26,6 @@ public class SolvingMechanics {
                                 }
                             }
                         }
-
                     } else if (i > 2 && i < 6) {
                         for (int l2 = 3; l2 < 6; l2++) {
                             if (j < 3) {

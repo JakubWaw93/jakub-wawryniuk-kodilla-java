@@ -16,4 +16,6 @@ public class SudokuRow {
     public List<SudokuElement> getSudokuRow() {
         return sudokuRow;
     }
+
+
 }

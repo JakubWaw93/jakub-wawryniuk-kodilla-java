@@ -1,13 +1,16 @@
 package com.kodilla.sudoku;
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+
+import java.security.spec.RSAOtherPrimeInfo;
+
 import static org.junit.jupiter.api.Assertions.*;
 
 public class SudokuTestSuite {
 
     static SolvingMechanics solvingMechanics;
     static SudokuBoard sudokuBoard;
-    static SudokuGame sudokuGame;
+    static SudokuGame sudokuGame = new SudokuGame();
     @BeforeAll
     static void createABoard() {
         solvingMechanics = new SolvingMechanics();
@@ -58,7 +61,7 @@ public class SudokuTestSuite {
 
         //When
         System.out.println(sudokuElement.getPossibleValues());
-        solvingMechanics.sudokuCheck(sudokuBoard);
+        solvingMechanics.singleLoopSudokuSolver(sudokuBoard);
 
 
         //Then
@@ -69,7 +72,6 @@ public class SudokuTestSuite {
     @Test
     void sudokuResolverTest () {
         //Given
-        sudokuGame = new SudokuGame();
         System.out.println(sudokuBoard);
         boolean gameFinished = false;
         //When&&Then
@@ -77,5 +79,33 @@ public class SudokuTestSuite {
             gameFinished = sudokuGame.resolveSudoku(sudokuBoard);
         }
         System.out.println(sudokuBoard);
+    }
+
+    @Test
+    void backTrackTest() {
+        //Given
+        //When
+        BackTrack backTrack = new BackTrack(0,0,1);
+        SudokuBoard sudokuBoardCopy = backTrack.saveBoardCopy(sudokuBoard);
+        int i = backTrack.getiOfGuessingElement();
+        int j = backTrack.getjOfGuessingElement();
+        int value = backTrack.getGuessingValueOfElement();
+        //Then
+                assertEquals(0, i);
+                assertEquals(0, j);
+                assertEquals(1, value);
+                assertEquals(sudokuBoard.getSudokuBoard().get(5).getSudokuRow().get(5),
+                        sudokuBoardCopy.getSudokuBoard().get(5).getSudokuRow().get(5));
+    }
+
+    @Test
+    void correctNumbersCheckTest() {
+        //Given
+        sudokuGame.resolveSudoku(sudokuBoard);
+        System.out.println(sudokuBoard);
+
+        //When
+        boolean correct = sudokuGame.resolveSudoku(sudokuBoard);
+        assertFalse(correct);
     }
 }
