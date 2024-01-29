@@ -1,16 +1,30 @@
-package sudoku;
+package com.kodilla.sudoku;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class SudokuBoard {
+public class SudokuBoard extends Prototype<SudokuBoard> {
 
-    private static List<SudokuRow> sudokuBoard = new ArrayList<>();
+    private List<SudokuRow> sudokuBoard = new ArrayList<>();
+
 
     public SudokuBoard() {
         for (int i = 0; i < 9; i++) {
             sudokuBoard.add(new SudokuRow());
         }
+    }
+
+    public SudokuBoard deepCopy() throws CloneNotSupportedException {
+        SudokuBoard clonedSudokuBoard = super.clone();
+        clonedSudokuBoard.sudokuBoard = new ArrayList<>();
+        for (SudokuRow sudokuRow : sudokuBoard) {
+            SudokuRow clonedRow = new SudokuRow();
+            for (SudokuElement sudokuElement : sudokuRow.getSudokuRow()) {
+                clonedRow.getSudokuRow().add(sudokuElement);
+            }
+            clonedSudokuBoard.getSudokuBoard().add(clonedRow);
+        }
+        return clonedSudokuBoard;
     }
 
     public List<SudokuRow> getSudokuBoard() {
@@ -21,8 +35,12 @@ public class SudokuBoard {
     public String toString() {
         final StringBuilder sb = new StringBuilder();
         sb.append("    ||");
-        for (int j = 1; j <= sudokuBoard.size(); j++ ) {
-            sb.append(" (").append(j).append(") |");
+        for (int j = 1; j <= sudokuBoard.size(); j++) {
+            if (j == 3 || j == 6 || j == 9) {
+                sb.append(" (").append(j).append(") ||");
+            } else {
+                sb.append(" (").append(j).append(") |");
+            }
         }
         sb.append("\n");
         for (int k = 0; k < sudokuBoard.size(); k++) {
@@ -35,11 +53,12 @@ public class SudokuBoard {
                 }
             }
             sb.append("\n");
-            if (k ==2 || k == 5) {
+            if (k == 2 || k == 5) {
                 sb.append("----------------------------------------------------------------\n");
             }
 
         }
         return sb.toString();
     }
+
 }

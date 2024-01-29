@@ -1,4 +1,4 @@
-package sudoku;
+package com.kodilla.sudoku;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ public class SudokuElement {
 
     private int value;
     public static final int EMPTY = -1;
-    private List<Integer> possibleValues = new ArrayList<>();
+    private final List<Integer> possibleValues = new ArrayList<>();
 
     public SudokuElement(int value) {
         this.value = value;
@@ -42,6 +42,24 @@ public class SudokuElement {
         } else {
             result = String.valueOf(value);
         }
+        return result;
+    }
+
+    @Override
+    public boolean equals(Object o) {
+        if (this == o) return true;
+        if (o == null || getClass() != o.getClass()) return false;
+
+        SudokuElement that = (SudokuElement) o;
+
+        if (value != that.value) return false;
+        return possibleValues.equals(that.possibleValues);
+    }
+
+    @Override
+    public int hashCode() {
+        int result = value;
+        result = 31 * result + possibleValues.hashCode();
         return result;
     }
 }
