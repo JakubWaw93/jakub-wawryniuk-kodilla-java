@@ -16,11 +16,11 @@ public class SolvingMechanics {
                         sudokuElement.getPossibleValues().remove(Integer.valueOf(sudokuBoard1.get(k).getSudokuRow().get(j).getValue()));
                     }
                     if (i < 3) {
-                        ProcessPossibleValuesRemovalSudokuBox(0, 3, j, sudokuElement, sudokuBoard1);
-                    } else if (i > 2 && i < 6) {
-                        ProcessPossibleValuesRemovalSudokuBox(3, 6, j, sudokuElement, sudokuBoard1);
-                    } else if (i > 5) {
-                        ProcessPossibleValuesRemovalSudokuBox(6, 9, j, sudokuElement, sudokuBoard1);
+                        possibleValuesRemovalFromChosenRowOfSudokuBoxes(0, 3, j, sudokuElement, sudokuBoard1);
+                    } else if (i < 6) {
+                        possibleValuesRemovalFromChosenRowOfSudokuBoxes(3, 6, j, sudokuElement, sudokuBoard1);
+                    } else {
+                        possibleValuesRemovalFromChosenRowOfSudokuBoxes(6, 9, j, sudokuElement, sudokuBoard1);
                     }
                     if (sudokuElement.getPossibleValues().size() == 1) {
                         sudokuElement.setValue(sudokuElement.getPossibleValues().get(0));
@@ -34,25 +34,25 @@ public class SolvingMechanics {
         return sudokuBoard;
     }
 
-    private static void ProcessPossibleValuesRemovalSudokuBox(int l, int x, int j, SudokuElement sudokuElement, List<SudokuRow> sudokuBoard1) {
+    private static void possibleValuesRemovalFromChosenRowOfSudokuBoxes(int l, int x, int j, SudokuElement sudokuElement, List<SudokuRow> sudokuBoard) {
         for (int l1 = l; l1 < x; l1++) {
-            processPossibleValuesRemovalCombine(j, sudokuElement, sudokuBoard1, l1);
+            possibleValuesRemovalFromRowInChosenBox(j, sudokuElement, sudokuBoard, l1);
         }
     }
 
-    private static void processPossibleValuesRemovalCombine(int j, SudokuElement sudokuElement, List<SudokuRow> sudokuBoard1, int l1) {
+    private static void possibleValuesRemovalFromRowInChosenBox(int j, SudokuElement sudokuElement, List<SudokuRow> sudokuBoard, int l) {
         if (j < 3) {
-            processPossibleValuesRemoving(0, 3, sudokuElement, sudokuBoard1, l1);
-        } else if (j > 2 && j < 6) {
-            processPossibleValuesRemoving(3, 6, sudokuElement, sudokuBoard1, l1);
-        } else if (j > 5) {
-            processPossibleValuesRemoving(6, 9, sudokuElement, sudokuBoard1, l1);
+            processPossibleValuesRemovalFromRowInBox(0, 3, sudokuElement, sudokuBoard, l);
+        } else if (j < 6) {
+            processPossibleValuesRemovalFromRowInBox(3, 6, sudokuElement, sudokuBoard, l);
+        } else {
+            processPossibleValuesRemovalFromRowInBox(6, 9, sudokuElement, sudokuBoard, l);
         }
     }
 
-    private static void processPossibleValuesRemoving(int k, int x, SudokuElement sudokuElement, List<SudokuRow> sudokuBoard1, int l1) {
+    private static void processPossibleValuesRemovalFromRowInBox(int k, int x, SudokuElement sudokuElement, List<SudokuRow> sudokuBoard, int l) {
         for (int k1 = k; k1 < x; k1++) {
-            sudokuElement.getPossibleValues().remove(Integer.valueOf(sudokuBoard1.get(l1).getSudokuRow().get(k1).getValue()));
+            sudokuElement.getPossibleValues().remove(Integer.valueOf(sudokuBoard.get(l).getSudokuRow().get(k1).getValue()));
         }
     }
 }

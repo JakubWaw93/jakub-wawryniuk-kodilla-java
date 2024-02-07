@@ -8,7 +8,8 @@ import java.util.stream.IntStream;
 
 public class SudokuGame {
 
-    private List<BackTrack> backTracks = new ArrayList<>();
+    private static List<BackTrack> backTracks = new ArrayList<>();
+
 
 
     SolvingMechanics solvingMechanics = new SolvingMechanics();
@@ -20,40 +21,38 @@ public class SudokuGame {
         try {
             sudokuBoard = solvingMechanics.singleLoopSudokuSolver(sudokuBoard);
 
-        if (areBoardsTheSame(sudokuBoard, sudokuBoardChangesCheck)) {
-            for (int i = 0; i < sudokuBoard.getSudokuBoard().size(); i++) {
-                SudokuRow sudokuRow = sudokuBoard.getSudokuBoard().get(i);
-                for (int j = 0; j < sudokuRow.getSudokuRow().size(); j++) {
-                    SudokuElement sudokuElement = sudokuRow.getSudokuRow().get(j);
+            if (areBoardsTheSame(sudokuBoard, sudokuBoardChangesCheck)) {
+                for (int i = 0; i < sudokuBoard.getSudokuBoard().size(); i++) {
+                    SudokuRow sudokuRow = sudokuBoard.getSudokuBoard().get(i);
+                    for (int j = 0; j < sudokuRow.getSudokuRow().size(); j++) {
+                        SudokuElement sudokuElement = sudokuRow.getSudokuRow().get(j);
+                        if (sudokuElement.getValue() == SudokuElement.EMPTY) {
+                            List<Integer> possibleValues = sudokuElement.getPossibleValues();
+                            BackTrack backTrack = new BackTrack(i, j, possibleValues.get(0));
+                            backTrack.saveBoardCopy(sudokuBoard);
+                            backTracks.add(backTrack);
+                            sudokuElement.setValue(possibleValues.get(0));
+                            return false;
+                        }
+                    }
+                }
+            }
+            for (SudokuRow sudokuRow : sudokuBoard.getSudokuBoard()) {
+                for (SudokuElement sudokuElement : sudokuRow.getSudokuRow()) {
                     if (sudokuElement.getValue() == SudokuElement.EMPTY) {
-                        List<Integer> possibleValues = sudokuElement.getPossibleValues();
-                        BackTrack backTrack = new BackTrack(i, j, possibleValues.get(0)); // Dlaczego index out of boundaries?
-                        backTrack.saveBoardCopy(sudokuBoard);
-                        backTracks.add(backTrack);
-                        sudokuElement.setValue(possibleValues.get(0));
                         return false;
                     }
                 }
             }
-        }
         } catch (NoPossibleValuesException e) {
             SudokuConsole.exceptionMessage(e.getMessage());
-            reloadSudokuBoard();
+             resolveSudoku(reloadSudokuBoard(sudokuBoard));
+             return true;
         }
-
-        for (SudokuRow sudokuRow : sudokuBoard.getSudokuBoard()) {
-            for (SudokuElement sudokuElement : sudokuRow.getSudokuRow()) {
-                if (sudokuElement.getValue() == SudokuElement.EMPTY) {
-                    return false;
-                }
-            }
-        }
-        return true;
+        return false;
     }
-    // jak to zaimplementować? w któym miejscu ?
-    private boolean reloadSudokuBoard() {
-        SudokuBoard sudokuBoard;
 
+    private SudokuBoard reloadSudokuBoard(SudokuBoard sudokuBoard) {
         if (backTracks.size()>0 && !backTracks.get(backTracks.size()-1).getSudokuBoardCopy().getSudokuBoard().isEmpty()) {
             sudokuBoard = backTracks.get(backTracks.size() - 1).getSudokuBoardCopy();
             int i = backTracks.get(backTracks.size() - 1).getiOfGuessingElement();
@@ -61,11 +60,12 @@ public class SudokuGame {
             int shootValue = backTracks.get(backTracks.size() - 1).getGuessingValueOfElement();
             sudokuBoard.getSudokuBoard().get(i).getSudokuRow().get(j).getPossibleValues().remove(Integer.valueOf(shootValue));
             backTracks.remove(backTracks.size() - 1);
-            return false;
+
         } else {
             SudokuConsole.incorrectSudoku();
-            return true;
+
         }
+        return sudokuBoard;
     }
 
     public boolean areBoardsTheSame(SudokuBoard sudokuBoard, SudokuBoard sudokuBoardAfterLoop) {
