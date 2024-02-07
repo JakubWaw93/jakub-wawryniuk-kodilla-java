@@ -25,6 +25,14 @@ public class SudokuConsole {
         System.out.println(sudokuBoard);
     }
 
+    public static void exceptionMessage(String message) {
+        System.out.println("Exception message: " + message);
+    }
+
+    public static void incorrectSudoku() {
+        System.out.println("This sudoku board is empty");
+    }
+
 
 
 }

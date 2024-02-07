@@ -2,24 +2,19 @@ package com.kodilla.sudoku;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
-public class SudokuElement {
+public final class SudokuElement {
 
     private int value;
     public static final int EMPTY = -1;
-    private final List<Integer> possibleValues = new ArrayList<>();
+    private  List<Integer> possibleValues = new ArrayList<>();
 
     public SudokuElement(int value) {
         this.value = value;
-        possibleValues.add(1);
-        possibleValues.add(2);
-        possibleValues.add(3);
-        possibleValues.add(4);
-        possibleValues.add(5);
-        possibleValues.add(6);
-        possibleValues.add(7);
-        possibleValues.add(8);
-        possibleValues.add(9);
+        for (int i = 1; i < 10; i++) {
+            possibleValues.add(i);
+        }
     }
 
     public int getValue() {
@@ -32,6 +27,10 @@ public class SudokuElement {
 
     public List<Integer> getPossibleValues() {
         return possibleValues;
+    }
+
+    public void setPossibleValues(List<Integer> possibleValues) {
+        this.possibleValues = possibleValues;
     }
 
     @Override
@@ -49,17 +48,12 @@ public class SudokuElement {
     public boolean equals(Object o) {
         if (this == o) return true;
         if (o == null || getClass() != o.getClass()) return false;
-
         SudokuElement that = (SudokuElement) o;
-
-        if (value != that.value) return false;
-        return possibleValues.equals(that.possibleValues);
+        return value == that.value && Objects.equals(possibleValues, that.possibleValues);
     }
 
     @Override
     public int hashCode() {
-        int result = value;
-        result = 31 * result + possibleValues.hashCode();
-        return result;
+        return Objects.hash(value, possibleValues);
     }
 }

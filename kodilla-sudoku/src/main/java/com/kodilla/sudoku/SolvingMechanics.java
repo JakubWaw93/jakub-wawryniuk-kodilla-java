@@ -2,7 +2,7 @@ package com.kodilla.sudoku;
 
 public class SolvingMechanics {
 
-    public SudokuBoard singleLoopSudokuSolver(SudokuBoard sudokuBoard) {
+    public SudokuBoard singleLoopSudokuSolver(SudokuBoard sudokuBoard) throws NoPossibleValuesException {
         for (int i = 0; i < sudokuBoard.getSudokuBoard().size(); i++) {
             for (int j = 0; j < sudokuBoard.getSudokuBoard().size(); j++) {
                 if (sudokuBoard.getSudokuBoard().get(i).getSudokuRow().get(j).getValue() == SudokuElement.EMPTY) {
@@ -61,6 +61,9 @@ public class SolvingMechanics {
                     }
                     if (sudokuBoard.getSudokuBoard().get(i).getSudokuRow().get(j).getPossibleValues().size() == 1) {
                         sudokuBoard.getSudokuBoard().get(i).getSudokuRow().get(j).setValue(sudokuBoard.getSudokuBoard().get(i).getSudokuRow().get(j).getPossibleValues().get(0));
+                    } else if (sudokuBoard.getSudokuBoard().get(i).getSudokuRow().get(j).getPossibleValues().isEmpty()) {
+                        throw new NoPossibleValuesException("No possible values for this field");
+
                     }
                 }
             }

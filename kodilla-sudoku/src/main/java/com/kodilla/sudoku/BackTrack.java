@@ -15,13 +15,12 @@ public class BackTrack {
 
     }
 
-    public SudokuBoard saveBoardCopy(SudokuBoard sudokuBoard) {
+    public void saveBoardCopy(SudokuBoard sudokuBoard) {
         try {
             sudokuBoardCopy = sudokuBoard.deepCopy();
         } catch (CloneNotSupportedException e) {
             System.out.println(e);
         }
-        return sudokuBoardCopy;
     }
 
     public SudokuBoard getSudokuBoardCopy() {
