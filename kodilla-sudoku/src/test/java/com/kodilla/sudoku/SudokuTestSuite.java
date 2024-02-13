@@ -2,8 +2,10 @@ package com.kodilla.sudoku;
 
 import org.junit.jupiter.api.BeforeAll;
 import org.junit.jupiter.api.Test;
+import org.mockito.Mock;
 
-import java.util.Objects;
+import java.util.ArrayList;
+import java.util.List;
 
 import static org.junit.jupiter.api.Assertions.*;
 
@@ -17,49 +19,49 @@ public class SudokuTestSuite {
     static void createABoard() {
         solvingMechanics = new SolvingMechanics();
         sudokuBoard = new SudokuBoard();
-        sudokuBoard.getSudokuBoard().get(0).getSudokuRow().get(7).setValue(7);
-        sudokuBoard.getSudokuBoard().get(6).getSudokuRow().get(6).setValue(4);
-        sudokuBoard.getSudokuBoard().get(0).getSudokuRow().get(8).setValue(3);
-        sudokuBoard.getSudokuBoard().get(1).getSudokuRow().get(1).setValue(8);
-        sudokuBoard.getSudokuBoard().get(1).getSudokuRow().get(3).setValue(6);
-        sudokuBoard.getSudokuBoard().get(1).getSudokuRow().get(6).setValue(5);
-        sudokuBoard.getSudokuBoard().get(2).getSudokuRow().get(1).setValue(1);
-        sudokuBoard.getSudokuBoard().get(2).getSudokuRow().get(5).setValue(7);
-//        sudokuBoard.getSudokuBoard().get(2).getSudokuRow().get(6).setValue(8);
-//        sudokuBoard.getSudokuBoard().get(2).getSudokuRow().get(0).setValue(2);
-//        sudokuBoard.getSudokuBoard().get(2).getSudokuRow().get(2).setValue(3);
-//        sudokuBoard.getSudokuBoard().get(3).getSudokuRow().get(2).setValue(7);
-//        sudokuBoard.getSudokuBoard().get(4).getSudokuRow().get(2).setValue(9);
-//        sudokuBoard.getSudokuBoard().get(5).getSudokuRow().get(2).setValue(6);
-//        sudokuBoard.getSudokuBoard().get(2).getSudokuRow().get(3).setValue(9);
-//        sudokuBoard.getSudokuBoard().get(2).getSudokuRow().get(4).setValue(5);
-//        sudokuBoard.getSudokuBoard().get(3).getSudokuRow().get(0).setValue(1);
-//        sudokuBoard.getSudokuBoard().get(3).getSudokuRow().get(4).setValue(4);
-//        sudokuBoard.getSudokuBoard().get(3).getSudokuRow().get(6).setValue(6);
-//        sudokuBoard.getSudokuBoard().get(4).getSudokuRow().get(6).setValue(7);
-//        sudokuBoard.getSudokuBoard().get(5).getSudokuRow().get(1).setValue(2);
-//        sudokuBoard.getSudokuBoard().get(5).getSudokuRow().get(3).setValue(5);
-//        sudokuBoard.getSudokuBoard().get(5).getSudokuRow().get(6).setValue(9);
-//        sudokuBoard.getSudokuBoard().get(6).getSudokuRow().get(0).setValue(3);
-//        sudokuBoard.getSudokuBoard().get(6).getSudokuRow().get(3).setValue(7);
-//        sudokuBoard.getSudokuBoard().get(7).getSudokuRow().get(0).setValue(4);
-//        sudokuBoard.getSudokuBoard().get(7).getSudokuRow().get(5).setValue(5);
-//        sudokuBoard.getSudokuBoard().get(7).getSudokuRow().get(6).setValue(3);
-//        sudokuBoard.getSudokuBoard().get(7).getSudokuRow().get(7).setValue(9);
-//        sudokuBoard.getSudokuBoard().get(8).getSudokuRow().get(0).setValue(9);
-        sudokuBoard.getSudokuBoard().get(8).getSudokuRow().get(3).setValue(2);
-        sudokuBoard.getSudokuBoard().get(8).getSudokuRow().get(6).setValue(1);
-        sudokuBoard.getSudokuBoard().get(2).getSudokuRow().get(7).setValue(4);
-        sudokuBoard.getSudokuBoard().get(7).getSudokuRow().get(2).setValue(2);
-        sudokuBoard.getSudokuBoard().get(7).getSudokuRow().get(3).setValue(1);
-        sudokuBoard.getSudokuBoard().get(7).getSudokuRow().get(4).setValue(8);
+        sudokuBoard.getSudokuRows().get(0).getSudokuElements().get(7).setValue(7);
+        sudokuBoard.getSudokuRows().get(6).getSudokuElements().get(6).setValue(4);
+        sudokuBoard.getSudokuRows().get(0).getSudokuElements().get(8).setValue(3);
+        sudokuBoard.getSudokuRows().get(1).getSudokuElements().get(1).setValue(8);
+//        sudokuBoard.getSudokuRows().get(1).getSudokuElements().get(3).setValue(6);
+//        sudokuBoard.getSudokuRows().get(1).getSudokuElements().get(6).setValue(5);
+//        sudokuBoard.getSudokuRows().get(2).getSudokuElements().get(1).setValue(1);
+//        sudokuBoard.getSudokuRows().get(2).getSudokuElements().get(5).setValue(7);
+//        sudokuBoard.getSudokuRows().get(2).getSudokuElements().get(6).setValue(8);
+//        sudokuBoard.getSudokuRows().get(2).getSudokuElements().get(0).setValue(2);
+//        sudokuBoard.getSudokuRows().get(2).getSudokuElements().get(2).setValue(3);
+//        sudokuBoard.getSudokuRows().get(3).getSudokuElements().get(2).setValue(7);
+//        sudokuBoard.getSudokuRows().get(4).getSudokuElements().get(2).setValue(9);
+//        sudokuBoard.getSudokuRows().get(5).getSudokuElements().get(2).setValue(6);
+//        sudokuBoard.getSudokuRows().get(2).getSudokuElements().get(3).setValue(9);
+//        sudokuBoard.getSudokuRows().get(2).getSudokuElements().get(4).setValue(5);
+//        sudokuBoard.getSudokuRows().get(3).getSudokuElements().get(0).setValue(1);
+//        sudokuBoard.getSudokuRows().get(3).getSudokuElements().get(4).setValue(4);
+//        sudokuBoard.getSudokuRows().get(3).getSudokuElements().get(6).setValue(6);
+//        sudokuBoard.getSudokuRows().get(4).getSudokuElements().get(6).setValue(7);
+//        sudokuBoard.getSudokuRows().get(5).getSudokuElements().get(1).setValue(2);
+//        sudokuBoard.getSudokuRows().get(5).getSudokuElements().get(3).setValue(5);
+//        sudokuBoard.getSudokuRows().get(5).getSudokuElements().get(6).setValue(9);
+//        sudokuBoard.getSudokuRows().get(6).getSudokuElements().get(0).setValue(3);
+//        sudokuBoard.getSudokuRows().get(6).getSudokuElements().get(3).setValue(7);
+//        sudokuBoard.getSudokuRows().get(7).getSudokuElements().get(0).setValue(4);
+//        sudokuBoard.getSudokuRows().get(7).getSudokuElements().get(5).setValue(5);
+//        sudokuBoard.getSudokuRows().get(7).getSudokuElements().get(6).setValue(3);
+//        sudokuBoard.getSudokuRows().get(7).getSudokuElements().get(7).setValue(9);
+//        sudokuBoard.getSudokuRows().get(8).getSudokuElements().get(0).setValue(9);
+//        sudokuBoard.getSudokuRows().get(8).getSudokuElements().get(3).setValue(2);
+//        sudokuBoard.getSudokuRows().get(8).getSudokuElements().get(6).setValue(1);
+//        sudokuBoard.getSudokuRows().get(2).getSudokuElements().get(7).setValue(4);
+//        sudokuBoard.getSudokuRows().get(7).getSudokuElements().get(2).setValue(2);
+//        sudokuBoard.getSudokuRows().get(7).getSudokuElements().get(3).setValue(1);
+//        sudokuBoard.getSudokuRows().get(7).getSudokuElements().get(4).setValue(8);
     }
 
     @Test
     void sudokuResolverUpdatingPossibleValuesTest() {
         //Given
         System.out.println(sudokuBoard);
-        SudokuElement sudokuElement = sudokuBoard.getSudokuBoard().get(0).getSudokuRow().get(3);
+        SudokuElement sudokuElement = sudokuBoard.getSudokuRows().get(0).getSudokuElements().get(3);
 
         //When
         System.out.println(sudokuElement.getPossibleValues());
@@ -76,14 +78,10 @@ public class SudokuTestSuite {
     }
 
     @Test
-    void sudokuResolverTest() {
+    void sudokuResolverTest() throws IncorrectSudokuException {
         //Given
         System.out.println(sudokuBoard);
-        boolean gameFinished = false;
-        //When&&Then
-        while (!gameFinished) {
-            gameFinished = sudokuGame.resolveSudoku(sudokuBoard);
-        }
+        sudokuGame.resolveSudoku(sudokuBoard);
         System.out.println(sudokuBoard);
     }
 
@@ -101,8 +99,8 @@ public class SudokuTestSuite {
         assertEquals(0, i);
         assertEquals(0, j);
         assertEquals(1, value);
-        assertEquals(sudokuBoard.getSudokuBoard().get(5).getSudokuRow().get(5),
-                sudokuBoardCopy.getSudokuBoard().get(5).getSudokuRow().get(5));
+        assertEquals(sudokuBoard.getSudokuRows().get(5).getSudokuElements().get(5),
+                sudokuBoardCopy.getSudokuRows().get(5).getSudokuElements().get(5));
         System.out.println(sudokuBoard);
         System.out.println(sudokuBoardCopy);
     }
@@ -139,11 +137,38 @@ public class SudokuTestSuite {
         backTrack.saveBoardCopy(sudokuBoard);
         SudokuBoard sudokuBoardCopy = backTrack.getSudokuBoardCopy();
         //When
-        sudokuBoardCopy.getSudokuBoard().get(0).getSudokuRow().get(0).getPossibleValues().remove(0);
-        SudokuElement sudokuElement1 = sudokuBoard.getSudokuBoard().get(0).getSudokuRow().get(0);
-        SudokuElement sudokuElement2 = sudokuBoardCopy.getSudokuBoard().get(0).getSudokuRow().get(0);
+        sudokuBoardCopy.getSudokuRows().get(0).getSudokuElements().get(0).getPossibleValues().remove(0);
+        SudokuElement sudokuElement1 = sudokuBoard.getSudokuRows().get(0).getSudokuElements().get(0);
+        SudokuElement sudokuElement2 = sudokuBoardCopy.getSudokuRows().get(0).getSudokuElements().get(0);
         //Then
         assertNotEquals(sudokuElement1, sudokuElement2);
     }
 
+    @Test
+    void createBackTrackMethodTest() {
+        //Given
+        List<BackTrack> backTracks = new ArrayList<>();
+        //When
+        SudokuGame.createBackTrack(sudokuBoard, backTracks);
+        System.out.println(backTracks.get(0).getSudokuBoardCopy());
+        System.out.println(backTracks.get(0).getiOfGuessingElement());
+        System.out.println(backTracks.get(0).getjOfGuessingElement());
+        System.out.println(backTracks.get(0).getGuessingValueOfElement());
+    }
+
+    @Test
+    void backTrackSudokuBoardReloadMethodTest() throws IncorrectSudokuException {
+        //Given
+        List<BackTrack> backTracks = new ArrayList<>();
+        BackTrack backTrack = new BackTrack(0,4,8);
+        backTrack.saveBoardCopy(sudokuBoard);
+        backTracks.add(backTrack);
+        //When
+        SudokuBoard reloadedBoard = SudokuGame.backTrackSudokuBoardReload(backTracks);
+        //Then
+        assertEquals(0, backTracks.size());
+        assertFalse(sudokuGame.areBoardsTheSame(sudokuBoard,reloadedBoard));
+        System.out.println(sudokuBoard);
+        System.out.println(reloadedBoard);
+    }
 }

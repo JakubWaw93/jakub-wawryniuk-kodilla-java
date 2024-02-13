@@ -1,6 +1,6 @@
 package com.kodilla.sudoku;
 
-public class BackTrack {
+public final class BackTrack {
 
     private SudokuBoard sudokuBoardCopy;
     private final int iOfGuessingElement;
@@ -19,7 +19,7 @@ public class BackTrack {
         try {
             sudokuBoardCopy = sudokuBoard.deepCopy();
         } catch (CloneNotSupportedException e) {
-            System.out.println(e);
+
         }
     }
 

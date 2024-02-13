@@ -2,17 +2,15 @@ package com.kodilla.sudoku;
 
 public class SudokuRunner {
 
-    public static void main(String[] args) {
-
-        SudokuBoard sudokuBoard = new SudokuBoard();
-        boolean gameFinished = false;
-        SudokuBoardCreator sudokuBoardCreator = new SudokuBoardCreator();
-        sudokuBoard = sudokuBoardCreator.setVisibleNumbers(sudokuBoard);
-        while (!gameFinished) {
+    public static void main(String[] args) throws WrongCommendException, IncorrectSudokuException {
+        boolean end = false;
+        while (!end) {
+            SudokuBoard sudokuBoard = new SudokuBoard();
+            SudokuBoardCreator.setVisibleNumbers(sudokuBoard);
             SudokuGame game = new SudokuGame();
-            gameFinished = game.resolveSudoku(sudokuBoard);
+            game.resolveSudoku(sudokuBoard);
+            SudokuConsole.showSudokuBoard(sudokuBoard);
+            end = SudokuBoardCreator.isSolvingEnd(end);
         }
-        SudokuConsole.showSudokuBoard(sudokuBoard);
     }
-
 }

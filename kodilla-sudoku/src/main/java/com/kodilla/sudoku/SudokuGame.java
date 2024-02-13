@@ -1,82 +1,105 @@
 package com.kodilla.sudoku;
 
+import java.security.spec.RSAOtherPrimeInfo;
 import java.util.ArrayList;
 import java.util.List;
-import java.util.Objects;
-import java.util.stream.Collectors;
+import java.util.Random;
 import java.util.stream.IntStream;
 
 public class SudokuGame {
 
-    private static List<BackTrack> backTracks = new ArrayList<>();
-
-
-
+    private static final List<BackTrack> backTracks = new ArrayList<>();
+    private int backTracksCounter = 0;
     SolvingMechanics solvingMechanics = new SolvingMechanics();
+    public void resolveSudoku(SudokuBoard sudoku) throws IncorrectSudokuException {
+        SudokuBoard sudokuBoard = sudoku;
+        boolean end = false;
+        while(!end) {
+            BackTrack backTrackForChangesCheck = new BackTrack(0, 0, 0);
+            backTrackForChangesCheck.saveBoardCopy(sudokuBoard);
+            SudokuBoard sudokuBoardForChangesCheck = backTrackForChangesCheck.getSudokuBoardCopy();
 
-    public boolean resolveSudoku(SudokuBoard sudokuBoard) {
-        BackTrack backTrackForChangesCheck = new BackTrack(0, 0, 0);
-        backTrackForChangesCheck.saveBoardCopy(sudokuBoard);
-        SudokuBoard sudokuBoardChangesCheck = backTrackForChangesCheck.getSudokuBoardCopy();
-        try {
-            sudokuBoard = solvingMechanics.singleLoopSudokuSolver(sudokuBoard);
+            try {
+                sudokuBoard = solvingMechanics.singleLoopSudokuSolver(sudokuBoard);
 
-            if (areBoardsTheSame(sudokuBoard, sudokuBoardChangesCheck)) {
-                for (int i = 0; i < sudokuBoard.getSudokuBoard().size(); i++) {
-                    SudokuRow sudokuRow = sudokuBoard.getSudokuBoard().get(i);
-                    for (int j = 0; j < sudokuRow.getSudokuRow().size(); j++) {
-                        SudokuElement sudokuElement = sudokuRow.getSudokuRow().get(j);
-                        if (sudokuElement.getValue() == SudokuElement.EMPTY) {
-                            List<Integer> possibleValues = sudokuElement.getPossibleValues();
-                            BackTrack backTrack = new BackTrack(i, j, possibleValues.get(0));
-                            backTrack.saveBoardCopy(sudokuBoard);
-                            backTracks.add(backTrack);
-                            sudokuElement.setValue(possibleValues.get(0));
-                            return false;
-                        }
-                    }
+                if (isSudokuBoardCompleted(sudokuBoard)) {
+                    sudoku.setSudokuRows(sudokuBoard.getSudokuRows());
+                    end = true;
+                }
+                if (areBoardsTheSame(sudokuBoard, sudokuBoardForChangesCheck)) {
+                    createBackTrack(sudokuBoard, SudokuGame.backTracks);
+                    backTracksCounter++;
+                }
+                if (backTracksCounter > 1000) {
+                    backTracks.clear();
+                }
+            } catch (NoPossibleValuesException e) {
+                try {
+                    sudokuBoard = backTrackSudokuBoardReload(SudokuGame.backTracks);
+                } catch (IncorrectSudokuException x) {
+                    SudokuConsole.exceptionMessage(x.getMessage());
+                    end = true;
                 }
             }
-            for (SudokuRow sudokuRow : sudokuBoard.getSudokuBoard()) {
-                for (SudokuElement sudokuElement : sudokuRow.getSudokuRow()) {
+        }
+    }
+
+    public static boolean createBackTrack(SudokuBoard sudokuBoard, List<BackTrack> backTracks) {
+        for (int i = 0; i < sudokuBoard.getSudokuRows().size(); i++) {
+            SudokuRow sudokuRow = sudokuBoard.getSudokuRows().get(i);
+            for (int j = 0; j < sudokuRow.getSudokuElements().size(); j++) {
+                SudokuElement sudokuElement = sudokuRow.getSudokuElements().get(j);
+                if (sudokuElement.getValue() == SudokuElement.EMPTY && !sudokuElement.getPossibleValues().isEmpty()) {
+                    List<Integer> possibleValues = sudokuElement.getPossibleValues();
+                    BackTrack backTrack = new BackTrack(i, j, possibleValues.get(0));
+                    backTrack.saveBoardCopy(sudokuBoard);
+                    backTracks.add(backTrack);
+                    sudokuElement.setValue(possibleValues.get(0));
+                    return false;
+                }
+            }
+
+        }
+        return false;
+    }
+
+        private static boolean isSudokuBoardCompleted(SudokuBoard sudokuBoard ){
+            for (SudokuRow sudokuRow : sudokuBoard.getSudokuRows()) {
+                for (SudokuElement sudokuElement : sudokuRow.getSudokuElements()) {
                     if (sudokuElement.getValue() == SudokuElement.EMPTY) {
                         return false;
                     }
                 }
             }
-        } catch (NoPossibleValuesException e) {
-            SudokuConsole.exceptionMessage(e.getMessage());
-             resolveSudoku(reloadSudokuBoard(sudokuBoard));
-             return true;
+            return true;
         }
-        return false;
-    }
 
-    private SudokuBoard reloadSudokuBoard(SudokuBoard sudokuBoard) {
-        if (backTracks.size()>0 && !backTracks.get(backTracks.size()-1).getSudokuBoardCopy().getSudokuBoard().isEmpty()) {
-            sudokuBoard = backTracks.get(backTracks.size() - 1).getSudokuBoardCopy();
-            int i = backTracks.get(backTracks.size() - 1).getiOfGuessingElement();
-            int j = backTracks.get(backTracks.size() - 1).getjOfGuessingElement();
-            int shootValue = backTracks.get(backTracks.size() - 1).getGuessingValueOfElement();
-            sudokuBoard.getSudokuBoard().get(i).getSudokuRow().get(j).getPossibleValues().remove(Integer.valueOf(shootValue));
-            backTracks.remove(backTracks.size() - 1);
-
+   public static SudokuBoard backTrackSudokuBoardReload(List<BackTrack> backTracks) throws IncorrectSudokuException {
+       SudokuBoard sudokuBoard = null;
+        if (!backTracks.isEmpty() && !backTracks.get(backTracks.size() - 1).getSudokuBoardCopy().getSudokuRows().isEmpty()) {
+            BackTrack lastBackTrack = backTracks.remove(backTracks.size() - 1);
+            sudokuBoard = lastBackTrack.getSudokuBoardCopy();
+            int i = lastBackTrack.getiOfGuessingElement();
+            int j = lastBackTrack.getjOfGuessingElement();
+            int shootValue = lastBackTrack.getGuessingValueOfElement();
+            SudokuElement guessedElement = sudokuBoard.getSudokuRows().get(i).getSudokuElements().get(j);
+            guessedElement.getPossibleValues().remove(Integer.valueOf(shootValue));
         } else {
-            SudokuConsole.incorrectSudoku();
-
+            throw new IncorrectSudokuException ("Incorrect sudoku, no possible solutions.");
         }
         return sudokuBoard;
     }
 
     public boolean areBoardsTheSame(SudokuBoard sudokuBoard, SudokuBoard sudokuBoardAfterLoop) {
-        List<SudokuElement> sudokuBoardFlatElements = sudokuBoard.getSudokuBoard().stream()
-                .flatMap(sudokuRow -> sudokuRow.getSudokuRow().stream())
+        List<SudokuElement> sudokuBoardFlatElements = sudokuBoard.getSudokuRows().stream()
+                .flatMap(sudokuRow -> sudokuRow.getSudokuElements().stream())
                 .toList();
-        List<SudokuElement> sudokuBoardAfterLoopFlatElements = sudokuBoardAfterLoop.getSudokuBoard().stream()
-                .flatMap(sudokuRow -> sudokuRow.getSudokuRow().stream())
+        List<SudokuElement> sudokuBoardAfterLoopFlatElements = sudokuBoardAfterLoop.getSudokuRows().stream()
+                .flatMap(sudokuRow -> sudokuRow.getSudokuElements().stream())
                 .toList();
 
         return IntStream.range(0, sudokuBoardFlatElements.size())
                 .allMatch(i -> sudokuBoardFlatElements.get(i).equals(sudokuBoardAfterLoopFlatElements.get(i)));
     }
+
 }
