@@ -44,7 +44,8 @@ public class SudokuGame {
         }
     }
 
-    public static boolean createBackTrack(SudokuBoard sudokuBoard, List<BackTrack> backTracks) {
+    public static void createBackTrack(SudokuBoard sudokuBoard, List<BackTrack> backTracks) {
+        outerLoop:
         for (int i = 0; i < sudokuBoard.getSudokuRows().size(); i++) {
             SudokuRow sudokuRow = sudokuBoard.getSudokuRows().get(i);
             for (int j = 0; j < sudokuRow.getSudokuElements().size(); j++) {
@@ -55,12 +56,11 @@ public class SudokuGame {
                     backTrack.saveBoardCopy(sudokuBoard);
                     backTracks.add(backTrack);
                     sudokuElement.setValue(possibleValues.get(0));
-                    return false;
+                    break outerLoop;
                 }
             }
 
         }
-        return false;
     }
 
         private static boolean isSudokuBoardCompleted(SudokuBoard sudokuBoard ){
