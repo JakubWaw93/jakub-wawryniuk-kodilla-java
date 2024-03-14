@@ -27,6 +27,10 @@ public class SudokuConsole {
         return input.nextLine();
     }
 
+    public static void howDifficult(String difficulty) {
+        System.out.println("That was " + difficulty);
+    }
+
 
 
 }

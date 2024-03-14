@@ -10,6 +10,7 @@ public class SudokuGame {
 
     private static final List<BackTrack> backTracks = new ArrayList<>();
     private int backTracksCounter = 0;
+    private int loopCounter = 0;
     SolvingMechanics solvingMechanics = new SolvingMechanics();
     public void resolveSudoku(SudokuBoard sudoku) throws IncorrectSudokuException {
         SudokuBoard sudokuBoard = sudoku;
@@ -21,7 +22,7 @@ public class SudokuGame {
 
             try {
                 sudokuBoard = solvingMechanics.singleLoopSudokuSolver(sudokuBoard);
-
+                loopCounter++;
                 if (isSudokuBoardCompleted(sudokuBoard)) {
                     sudoku.setSudokuRows(sudokuBoard.getSudokuRows());
                     end = true;
@@ -42,6 +43,8 @@ public class SudokuGame {
                 }
             }
         }
+        SudokuConsole.howDifficult(SpecifyDifficulty.howDifficult(loopCounter, backTracksCounter)
+                + " Loops: " + loopCounter + " BackTracks: " + backTracksCounter);
     }
 
     public static void createBackTrack(SudokuBoard sudokuBoard, List<BackTrack> backTracks) {

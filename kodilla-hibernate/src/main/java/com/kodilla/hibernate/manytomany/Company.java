@@ -1,4 +1,6 @@
 package com.kodilla.hibernate.manytomany;
+import org.springframework.stereotype.Service;
+
 import javax.persistence.*;
 import javax.validation.constraints.NotNull;
 import java.util.ArrayList;
@@ -7,6 +9,11 @@ import java.util.List;
 @NamedNativeQuery(
         name = "Company.retrieveByThreeCharsOfName",
         query = "SELECT * FROM COMPANIES WHERE LEFT(COMPANY_NAME,3) = :FIRSTLETTERS",
+        resultClass = Company.class
+)
+@NamedNativeQuery(
+        name = "Company.retrieveByPartialName",
+        query = "SELECT * FROM COMPANIES WHERE COMPANY_NAME LIKE CONCAT('%', :partialName, '%')",
         resultClass = Company.class
 )
 @Entity
