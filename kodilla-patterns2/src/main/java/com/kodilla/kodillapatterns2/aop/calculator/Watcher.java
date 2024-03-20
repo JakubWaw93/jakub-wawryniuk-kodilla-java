@@ -37,4 +37,17 @@ public class Watcher {
         }
         return result;
     }
+
+    @Around("execution(* com.kodilla.kodillapatterns2.facade.api.OrderFacade.processOrder(..))")
+    public Object logFacadeEvent(final ProceedingJoinPoint proceedingJoinPoint) throws Throwable {
+        Object result;
+        LOGGER.info("Logging event ...");
+        try {
+            result = proceedingJoinPoint.proceed();
+        } catch (Throwable throwable) {
+            LOGGER.error(throwable.getMessage());
+            throw throwable;
+        }
+        return result;
+    }
 }
