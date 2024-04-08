@@ -12,6 +12,19 @@ public class SudokuGame {
     private int backTracksCounter = 0;
     private int loopCounter = 0;
     SolvingMechanics solvingMechanics = new SolvingMechanics();
+
+
+    public static void theSudoku() throws WrongCommendException, IncorrectSudokuException {
+        boolean end = false;
+        while (!end) {
+            SudokuBoard sudokuBoard = new SudokuBoard();
+            SudokuBoardCreator.setVisibleNumbers(sudokuBoard);
+            SudokuGame game = new SudokuGame();
+            game.resolveSudoku(sudokuBoard);
+            SudokuConsole.showSudokuBoard(sudokuBoard);
+            end = SudokuBoardCreator.isSolvingEnd(end);
+        }
+    }
     public void resolveSudoku(SudokuBoard sudoku) throws IncorrectSudokuException {
         SudokuBoard sudokuBoard = sudoku;
         boolean end = false;

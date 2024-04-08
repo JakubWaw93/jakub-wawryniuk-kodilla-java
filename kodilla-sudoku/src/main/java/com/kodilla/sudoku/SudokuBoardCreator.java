@@ -5,10 +5,6 @@ import java.util.Objects;
 public class SudokuBoardCreator {
 
     public static SudokuBoard setVisibleNumbers(SudokuBoard sudokuBoard) throws WrongCommendException {
-        int line = 0;
-        int element = 0;
-        int number = SudokuElement.EMPTY;
-        String userChoice;
         boolean sudokuBoardCreated = false;
         while (!sudokuBoardCreated) {
             try {
@@ -49,9 +45,9 @@ public class SudokuBoardCreator {
     public static boolean isSolvingEnd(boolean end) {
         try {
             String userChoice = SudokuConsole.solveNextSudoku();
-            if (userChoice.equals("Y")) {
+            if (userChoice.equalsIgnoreCase("Y")) {
                 end = false;
-            } else if (userChoice.equals("N")) {
+            } else if (userChoice.equalsIgnoreCase("N")) {
                 end = true;
             } else {
                 throw new WrongCommendException("Press 'Y' to solve next sudoku, or 'N' to end program.");

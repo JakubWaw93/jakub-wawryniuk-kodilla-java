@@ -15,7 +15,7 @@ public final class SudokuBoard extends Prototype<SudokuBoard> {
     }
 
     public SudokuBoard deepCopy() throws CloneNotSupportedException {
-        SudokuBoard clonedSudokuBoard = (SudokuBoard) super.clone();
+        SudokuBoard clonedSudokuBoard = super.clone();
         clonedSudokuBoard.sudokuRows = new ArrayList<>();
         for (SudokuRow sudokuRow : sudokuRows) {
             SudokuRow clonedRow = new SudokuRow();
