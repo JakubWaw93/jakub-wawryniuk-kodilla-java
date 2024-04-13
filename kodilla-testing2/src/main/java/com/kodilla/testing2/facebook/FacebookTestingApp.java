@@ -2,6 +2,7 @@ package com.kodilla.testing2.facebook;
 
 import com.kodilla.testing2.config.WebDriverConfig;
 import org.openqa.selenium.By;
+import org.openqa.selenium.NoSuchElementException;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
 import org.openqa.selenium.support.ui.ExpectedConditions;
@@ -23,9 +24,17 @@ public class FacebookTestingApp {
         WebDriver webDriver = WebDriverConfig.getDriver(WebDriverConfig.CHROME);
         webDriver.get("https://www.facebook.com/");
 
-        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(10));
+        WebDriverWait wait = new WebDriverWait(webDriver, Duration.ofSeconds(5));
 
-        wait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_ACCEPT_COOKIES))).click();
+        boolean cookiesAccepted = false;
+        while (!cookiesAccepted) {
+            try {
+                wait.until(ExpectedConditions.elementToBeClickable(By.xpath(XPATH_ACCEPT_COOKIES))).click();
+                cookiesAccepted = true;
+            } catch (Exception e) {
+                webDriver.navigate().refresh();
+            }
+        }
 
         webDriver.findElement(By.xpath(XPATH_REGISTER)).click();
 
