@@ -7,12 +7,11 @@ import org.junit.jupiter.api.Test;
 import org.openqa.selenium.By;
 import org.openqa.selenium.WebDriver;
 import org.openqa.selenium.WebElement;
-import org.openqa.selenium.support.ui.ExpectedConditions;
 import org.openqa.selenium.support.ui.Select;
-import org.openqa.selenium.support.ui.WebDriverWait;
 
-import java.time.Duration;
 import java.util.Random;
+
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
 public class CrudAppTestSuite {
 
@@ -55,7 +54,7 @@ public class CrudAppTestSuite {
     private void sendTestTaskToTrello(String taskName) throws InterruptedException {
         driver.navigate().refresh();
 
-        while(!driver.findElement(By.xpath("//select[1]")).isDisplayed());
+        while (!driver.findElement(By.xpath("//select[1]")).isDisplayed()) ;
 
         driver.findElements(
                         By.xpath("//form[@class=\"datatable__row\"]")).stream()
@@ -110,11 +109,44 @@ public class CrudAppTestSuite {
         return result;
     }
 
+    public boolean deleteTestTaskFromCrud(String taskName) throws InterruptedException {
+
+        boolean deleted = false;
+
+        driver.navigate().refresh();
+
+        Thread.sleep(5000);
+
+        driver.findElements(
+                        By.xpath("//form[@class=\"datatable__row\"]")).stream()
+                .filter(anyForm ->
+                        anyForm.findElement(By.xpath(".//p[@class=\"datatable__field-value\"]"))
+                                .getText().equals(taskName))
+                .forEach(form -> {
+                    WebElement button = form.findElement(By.xpath(".//button[@data-task-delete-button]"));
+                    button.click();
+                });
+
+        Thread.sleep(5000);
+
+        deleted = driver.findElements(
+                        By.xpath("//form[@class=\"datatable__row\"]")).stream()
+                .noneMatch(anyForm ->
+                        anyForm.findElement(By.xpath(".//p[@class=\"datatable__field-value\"]"))
+                                .getText().equals(taskName));
+
+        Thread.sleep(5000);
+
+        return deleted;
+
+    }
+
     @Test
     public void shouldCreateTrelloCard() throws InterruptedException {
         String taskName = createCrudeAppTestTask();
         sendTestTaskToTrello(taskName);
-        checkTaskExistInTrello(taskName);
+        assertTrue(checkTaskExistInTrello(taskName));
+        assertTrue(deleteTestTaskFromCrud(taskName));
     }
 
 }
